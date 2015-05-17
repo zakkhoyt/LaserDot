@@ -1,0 +1,443 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CF8005871B08596A008B830D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CF8005861B08596A008B830D /* main.m */; };
+		CF80058A1B08596A008B830D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CF8005891B08596A008B830D /* AppDelegate.m */; };
+		CF80058D1B08596A008B830D /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CF80058C1B08596A008B830D /* GameScene.m */; };
+		CF80058F1B08596A008B830D /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CF80058E1B08596A008B830D /* GameScene.sks */; };
+		CF8005921B08596A008B830D /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF8005911B08596A008B830D /* GameViewController.m */; };
+		CF8005951B08596A008B830D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF8005931B08596A008B830D /* Main.storyboard */; };
+		CF8005971B08596B008B830D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF8005961B08596B008B830D /* Images.xcassets */; };
+		CF80059A1B08596B008B830D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF8005981B08596B008B830D /* LaunchScreen.xib */; };
+		CF8005A61B08596B008B830D /* LaserDotTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CF8005A51B08596B008B830D /* LaserDotTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CF8005A01B08596B008B830D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CF8005791B08596A008B830D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CF8005801B08596A008B830D;
+			remoteInfo = LaserDot;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		CF8005811B08596A008B830D /* LaserDot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LaserDot.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CF8005851B08596A008B830D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CF8005861B08596A008B830D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		CF8005881B08596A008B830D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		CF8005891B08596A008B830D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		CF80058B1B08596A008B830D /* GameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
+		CF80058C1B08596A008B830D /* GameScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
+		CF80058E1B08596A008B830D /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		CF8005901B08596A008B830D /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
+		CF8005911B08596A008B830D /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		CF8005941B08596A008B830D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		CF8005961B08596B008B830D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		CF8005991B08596B008B830D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		CF80059F1B08596B008B830D /* LaserDotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LaserDotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CF8005A41B08596B008B830D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CF8005A51B08596B008B830D /* LaserDotTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LaserDotTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CF80057E1B08596A008B830D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CF80059C1B08596B008B830D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CF8005781B08596A008B830D = {
+			isa = PBXGroup;
+			children = (
+				CF8005831B08596A008B830D /* LaserDot */,
+				CF8005A21B08596B008B830D /* LaserDotTests */,
+				CF8005821B08596A008B830D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CF8005821B08596A008B830D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CF8005811B08596A008B830D /* LaserDot.app */,
+				CF80059F1B08596B008B830D /* LaserDotTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CF8005831B08596A008B830D /* LaserDot */ = {
+			isa = PBXGroup;
+			children = (
+				CF8005881B08596A008B830D /* AppDelegate.h */,
+				CF8005891B08596A008B830D /* AppDelegate.m */,
+				CF80058B1B08596A008B830D /* GameScene.h */,
+				CF80058C1B08596A008B830D /* GameScene.m */,
+				CF80058E1B08596A008B830D /* GameScene.sks */,
+				CF8005901B08596A008B830D /* GameViewController.h */,
+				CF8005911B08596A008B830D /* GameViewController.m */,
+				CF8005931B08596A008B830D /* Main.storyboard */,
+				CF8005961B08596B008B830D /* Images.xcassets */,
+				CF8005981B08596B008B830D /* LaunchScreen.xib */,
+				CF8005841B08596A008B830D /* Supporting Files */,
+			);
+			path = LaserDot;
+			sourceTree = "<group>";
+		};
+		CF8005841B08596A008B830D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CF8005851B08596A008B830D /* Info.plist */,
+				CF8005861B08596A008B830D /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CF8005A21B08596B008B830D /* LaserDotTests */ = {
+			isa = PBXGroup;
+			children = (
+				CF8005A51B08596B008B830D /* LaserDotTests.m */,
+				CF8005A31B08596B008B830D /* Supporting Files */,
+			);
+			path = LaserDotTests;
+			sourceTree = "<group>";
+		};
+		CF8005A31B08596B008B830D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CF8005A41B08596B008B830D /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CF8005801B08596A008B830D /* LaserDot */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CF8005A91B08596B008B830D /* Build configuration list for PBXNativeTarget "LaserDot" */;
+			buildPhases = (
+				CF80057D1B08596A008B830D /* Sources */,
+				CF80057E1B08596A008B830D /* Frameworks */,
+				CF80057F1B08596A008B830D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LaserDot;
+			productName = LaserDot;
+			productReference = CF8005811B08596A008B830D /* LaserDot.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CF80059E1B08596B008B830D /* LaserDotTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CF8005AC1B08596B008B830D /* Build configuration list for PBXNativeTarget "LaserDotTests" */;
+			buildPhases = (
+				CF80059B1B08596B008B830D /* Sources */,
+				CF80059C1B08596B008B830D /* Frameworks */,
+				CF80059D1B08596B008B830D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CF8005A11B08596B008B830D /* PBXTargetDependency */,
+			);
+			name = LaserDotTests;
+			productName = LaserDotTests;
+			productReference = CF80059F1B08596B008B830D /* LaserDotTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CF8005791B08596A008B830D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = "Zakk Hoyt";
+				TargetAttributes = {
+					CF8005801B08596A008B830D = {
+						CreatedOnToolsVersion = 6.3.1;
+					};
+					CF80059E1B08596B008B830D = {
+						CreatedOnToolsVersion = 6.3.1;
+						TestTargetID = CF8005801B08596A008B830D;
+					};
+				};
+			};
+			buildConfigurationList = CF80057C1B08596A008B830D /* Build configuration list for PBXProject "LaserDot" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CF8005781B08596A008B830D;
+			productRefGroup = CF8005821B08596A008B830D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CF8005801B08596A008B830D /* LaserDot */,
+				CF80059E1B08596B008B830D /* LaserDotTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CF80057F1B08596A008B830D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CF80059A1B08596B008B830D /* LaunchScreen.xib in Resources */,
+				CF8005971B08596B008B830D /* Images.xcassets in Resources */,
+				CF80058F1B08596A008B830D /* GameScene.sks in Resources */,
+				CF8005951B08596A008B830D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CF80059D1B08596B008B830D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CF80057D1B08596A008B830D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CF8005921B08596A008B830D /* GameViewController.m in Sources */,
+				CF80058A1B08596A008B830D /* AppDelegate.m in Sources */,
+				CF80058D1B08596A008B830D /* GameScene.m in Sources */,
+				CF8005871B08596A008B830D /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CF80059B1B08596B008B830D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CF8005A61B08596B008B830D /* LaserDotTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CF8005A11B08596B008B830D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CF8005801B08596A008B830D /* LaserDot */;
+			targetProxy = CF8005A01B08596B008B830D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		CF8005931B08596A008B830D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CF8005941B08596A008B830D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		CF8005981B08596B008B830D /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CF8005991B08596B008B830D /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CF8005A71B08596B008B830D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CF8005A81B08596B008B830D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CF8005AA1B08596B008B830D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = LaserDot/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		CF8005AB1B08596B008B830D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = LaserDot/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		CF8005AD1B08596B008B830D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = LaserDotTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LaserDot.app/LaserDot";
+			};
+			name = Debug;
+		};
+		CF8005AE1B08596B008B830D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = LaserDotTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LaserDot.app/LaserDot";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CF80057C1B08596A008B830D /* Build configuration list for PBXProject "LaserDot" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CF8005A71B08596B008B830D /* Debug */,
+				CF8005A81B08596B008B830D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CF8005A91B08596B008B830D /* Build configuration list for PBXNativeTarget "LaserDot" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CF8005AA1B08596B008B830D /* Debug */,
+				CF8005AB1B08596B008B830D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		CF8005AC1B08596B008B830D /* Build configuration list for PBXNativeTarget "LaserDotTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CF8005AD1B08596B008B830D /* Debug */,
+				CF8005AE1B08596B008B830D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CF8005791B08596A008B830D /* Project object */;
+}
