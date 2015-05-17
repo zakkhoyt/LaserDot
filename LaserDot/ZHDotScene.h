@@ -10,6 +10,8 @@
 
 @interface ZHDotScene : SKScene
 
+-(void)clearAllDots;
 // TODO Call this from captureOutput;
 -(void)updateTextureWithData:(void*)pixelData lengthInBytes:(size_t)lengthInBytes size:(CGSize)size;
+-(void)updateTextureWithImage:(UIImage*)image;
 @end

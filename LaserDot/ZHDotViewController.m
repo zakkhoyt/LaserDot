@@ -33,7 +33,14 @@
     [self.view addSubview:self.skView];
     self.avqueue = dispatch_queue_create("com.vaporwarewolf.laserdot.camera", NULL);
     
+    self.textureImageView.transform = CGAffineTransformMakeRotation(M_PI);
+    self.textureImageView.alpha = 0.4;
     [self startCamera];
+    
+    
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPress:)];
+    [self.view addGestureRecognizer:longPress];
+
 }
 
 
@@ -83,6 +90,12 @@
     return YES;
 }
 
+#pragma mark IBActions
+-(void)longPress:(UILongPressGestureRecognizer*)sender{
+    if(sender.state == UIGestureRecognizerStateBegan){
+        [self.myScene clearAllDots];
+    }
+}
 
 #pragma mark AVFoundation stuff
 
@@ -274,6 +287,10 @@
     size_t bytesPerRow = CVPixelBufferGetBytesPerRow(imageBuffer);
     size_t width = CVPixelBufferGetWidth(imageBuffer);
     size_t height = CVPixelBufferGetHeight(imageBuffer);
+
+    
+    // TODO: We need to rotate this image about the Z axis for M_PI.
+    // Using a transform on the layer works for display but it will create our texture mask backwards.
     
     for(int row = 0; row < height;row++){
         uint8_t *pixel = baseAddress + row * bytesPerRow;
@@ -283,10 +300,10 @@
             
             // Convert to alpya
             if(pixel[0] < 0x50){
-                pixel[0] = 0xFF;
-                pixel[1] = 0xFF;
-                pixel[2] = 0xFF;
-                pixel[3] = 0x30;
+                pixel[0] = 0x00; // b
+                pixel[1] = 0x00; // g
+                pixel[2] = 0xFF; // r
+                pixel[3] = 0xFF; // a
             } else {
                 pixel[0] = 0;
                 pixel[1] = 0;
@@ -296,6 +313,7 @@
             pixel += kBytesPerPixel;
         }
     }
+
 
     
     
@@ -311,12 +329,25 @@
     
     dispatch_async(dispatch_get_main_queue(), ^{
         self.textureImageView.image = textureImage;
-        //        self.textureImageView.image = [self imageFromRGBA:pixel width:width height:height];
-        //        [self.myScene updateTextureWithData:pixel lengthInBytes:(width * height * 4) size:CGSizeMake(width, height)];
+//        UIImage *i = [self imageWithView:self.textureImageView];
+//        [self.myScene updateTextureWithImage:textureImage];
+
     });
     
     CGImageRelease(quartzImage);
     CVPixelBufferUnlockBaseAddress( imageBuffer, 0 );
 }
 
+
+
+- (UIImage *) imageWithView:(UIView *)view {
+    UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.opaque, 0.0);
+    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    
+    UIImage * img = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return img;
+}
 @end
