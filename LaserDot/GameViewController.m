@@ -42,6 +42,7 @@
     BOOL _cameraRunning;
     AVCaptureVideoPreviewLayer *_videoPreviewLayer;
 }
+@property (nonatomic, strong) SKView *skView;
 @property dispatch_queue_t avqueue;
 @end
 
@@ -65,6 +66,10 @@
 //    // Present the scene.
 //    [skView presentScene:scene];
     
+    self.skView = [[SKView alloc]initWithFrame:self.view.bounds];
+    self.skView.allowsTransparency = YES;
+    self.skView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:self.skView];
     
     self.avqueue = dispatch_queue_create("com.vaporwarewolf.theremin.camera", NULL);
 }
@@ -75,18 +80,18 @@
     [super viewWillLayoutSubviews];
     
     // Configure the view.
-    SKView * skView = (SKView *)self.view;
-    skView.allowsTransparency = YES;
-    if (!skView.scene) {
-        skView.showsFPS = YES;
-        skView.showsNodeCount = YES;
+//    SKView * skView = (SKView *)self.view;
+    self.skView.allowsTransparency = YES;
+    if (!self.skView.scene) {
+        self.skView.showsFPS = YES;
+        self.skView.showsNodeCount = YES;
         
         // Create and configure the scene.
-        SKScene * scene = [MyScene sceneWithSize:skView.bounds.size];
+        SKScene * scene = [MyScene sceneWithSize:self.skView.bounds.size];
         scene.scaleMode = SKSceneScaleModeAspectFill;
-        
+        scene.backgroundColor = [UIColor clearColor];
         // Present the scene.
-        [skView presentScene:scene];
+        [self.skView presentScene:scene];
     }
 }
 
@@ -94,7 +99,7 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-//    [self startCamera];
+    [self startCamera];
 }
 
 
@@ -188,11 +193,8 @@
     _videoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:_session];
     _videoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
 
-    UIView *view = self.view;
-    CALayer *viewLayer = [view layer];
     
-    _videoPreviewLayer.frame = CGRectInset(view.bounds, 100, 100);
-//    _videoPreviewLayer.frame = CGRectMake(0, 0, 400, 400);
+    _videoPreviewLayer.frame = self.skView.bounds;
     
     
     AVCaptureConnection *previewLayerConnection=_videoPreviewLayer.connection;
@@ -201,15 +203,8 @@
         [previewLayerConnection setVideoOrientation:AVCaptureVideoOrientationLandscapeLeft];
     }
     
-//    [viewLayer addSublayer:_videoPreviewLayer];
-//    [self.view bringSubviewToFront:viewLayer];
-    [self.view.layer insertSublayer:_videoPreviewLayer below:self.view.layer];
+    [self.view.layer insertSublayer:_videoPreviewLayer below:self.skView.layer];
 
-    
-//    UIView *v = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 100, 100)];
-//    v.backgroundColor = [UIColor redColor];
-//    [self.view addSubview:v];
-    
     
     // ************************* configure AVCaptureSession to deliver raw frames via callback (as well as preview layer)
     AVCaptureVideoDataOutput *videoOutput = [[AVCaptureVideoDataOutput alloc] init];
