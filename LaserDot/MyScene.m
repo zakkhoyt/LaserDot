@@ -18,6 +18,7 @@ static NSString* blockNodeCategoryName = @"blockNode";
 @property (nonatomic) BOOL isFingerOnPaddle;
 @property (nonatomic) CGPoint startPoint;
 @property (nonatomic, strong) SKSpriteNode* ball;
+@property (nonatomic, strong) SKMutableTexture *objTexture;
 @end
 
 @implementation MyScene
@@ -81,6 +82,21 @@ static NSString* blockNodeCategoryName = @"blockNode";
         obj.physicsBody.dynamic = NO;
     }
     return self;
+}
+
+
+-(void)updateTextureWithData:(NSData*)data size:(CGSize)size{
+    if(self.objTexture == nil){
+        self.objTexture = [SKMutableTexture textureWithData:data size:size];
+    } else {
+        
+//        Modifies the contents of a mutable texture.
+//        The contents of the texture can be modified only at specific times when the graphics hardware permits it. When this method is called, it schedules a new background task to update the texture and then returns. Your block is called when the texture can be modified. Your block is called on an arbitrary queue. Your block should modify the texture’s contents and then return.
+//        The texture bytes are assumed to be stored as tightly packed 32 bpp, 8bpc (unsigned integer) RGBA pixel data. The color components you provide should have already been multiplied by the alpha value.
+        [self.objTexture modifyPixelDataWithBlock:^(void *pixelData, size_t lengthInBytes) {
+
+        }];
+    }
 }
 
 

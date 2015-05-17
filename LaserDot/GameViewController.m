@@ -48,30 +48,11 @@
 
 @implementation GameViewController
 
-- (void)viewDidLoad
-{
-//    [super viewDidLoad];
-//
-//    // Configure the view.
-//    SKView * skView = (SKView *)self.view;
-//    skView.showsFPS = YES;
-//    skView.showsNodeCount = YES;
-//    /* Sprite Kit applies additional optimizations to improve rendering performance */
-//    skView.ignoresSiblingOrder = YES;
-//    
-//    // Create and configure the scene.
-//    GameScene *scene = [GameScene unarchiveFromFile:@"GameScene"];
-//    scene.scaleMode = SKSceneScaleModeAspectFill;
-//    
-//    // Present the scene.
-//    [skView presentScene:scene];
-    
+- (void)viewDidLoad {
     self.skView = [[SKView alloc]initWithFrame:self.view.bounds];
     self.skView.allowsTransparency = YES;
-    self.skView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.skView];
-    
-    self.avqueue = dispatch_queue_create("com.vaporwarewolf.theremin.camera", NULL);
+    self.avqueue = dispatch_queue_create("com.vaporwarewolf.laserdot.camera", NULL);
 }
 
 
@@ -79,9 +60,6 @@
 -(void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     
-    // Configure the view.
-//    SKView * skView = (SKView *)self.view;
-    self.skView.allowsTransparency = YES;
     if (!self.skView.scene) {
         self.skView.showsFPS = YES;
         self.skView.showsNodeCount = YES;
@@ -103,13 +81,12 @@
 }
 
 
-- (BOOL)shouldAutorotate
-{
+- (BOOL)shouldAutorotate {
     return YES;
 }
 
-- (NSUInteger)supportedInterfaceOrientations
-{
+- (NSUInteger)supportedInterfaceOrientations {
+    // TOOD: Update this to transitioncoordinators
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         return UIInterfaceOrientationMaskAllButUpsideDown;
     } else {
@@ -117,23 +94,13 @@
     }
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc that aren't in use.
 }
 
 - (BOOL)prefersStatusBarHidden {
     return YES;
 }
-
-
-
-
-
-
-
-
 
 
 #pragma mark AVFoundation stuff
@@ -220,14 +187,10 @@
         
         [_session addOutput:videoOutput];
         _cameraRunning = YES;
-//        self.toggleButton.hidden = NO;
-//        self.crosshairImageView.hidden = NO;
         [_session startRunning];
     }
     else {
         NSLog(@"Could not add videoOutput");
-//        self.toggleButton.hidden = YES;
-//        self.crosshairImageView.hidden = YES;
         _cameraRunning = NO;
     }
 }
@@ -241,9 +204,6 @@
     _videoPreviewLayer = nil;
     _session = nil;
     _cameraRunning = NO;
-    
-//    self.crosshairImageView.hidden = YES;
-//    self.toggleButton.hidden = YES;
 }
 
 -(NSString*)deviceHardwareName{
@@ -375,32 +335,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     UIColor* uicolor = pixels[0];
     CGFloat red, green, blue, alpha = 0;
     [uicolor getRed:&red green:&green blue:&blue alpha:&alpha];
-    
-    
-//    self.cameraAxes.x.currentNormalized = red;
-//    self.cameraAxes.y.currentNormalized = green;
-//    self.cameraAxes.z.currentNormalized = blue;
-//    
-//    if(red < self.cameraAxes.x.min){
-//        self.cameraAxes.x.min = red;
-//    }
-//    if(red > self.cameraAxes.x.max){
-//        self.cameraAxes.x.max = red;
-//    }
-//    if(green < self.cameraAxes.y.min){
-//        self.cameraAxes.y.min = green;
-//    }
-//    if(green > self.cameraAxes.y.max){
-//        self.cameraAxes.y.max = green;
-//    }
-//    if(blue < self.cameraAxes.z.min){
-//        self.cameraAxes.z.min = blue;
-//    }
-//    if(blue > self.cameraAxes.z.max){
-//        self.cameraAxes.z.max = blue;
-//    }
-//    
-//    [[VWWSynthesizersController sharedInstance]cameraMonitorColorsUpdated:self.cameraAxes];
     
 }
 

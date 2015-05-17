@@ -10,4 +10,6 @@
 
 @interface MyScene : SKScene
 
+// TODO Call this from captureOutput;
+-(void)updateTexture:(id)texture;
 @end
