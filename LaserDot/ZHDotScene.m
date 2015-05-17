@@ -41,8 +41,8 @@ static const uint32_t treeCategory = 0x1 << 2;
         self.env.name = @"env";
         self.env.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
         self.env.size = self.size;
-        
         [self addChild:self.env];
+        
 
         
         self.physicsWorld.contactDelegate = self;
@@ -68,25 +68,25 @@ static const uint32_t treeCategory = 0x1 << 2;
 //        SKTexture *t = [SKTexture textureWithData:data size:CGSizeMake(300, 300)];
 //        self.obj.physicsBody = [SKPhysicsBody bodyWithTexture:t size:self.obj.size];
         
-        NSString *objImageName = @"tree.png";
-        self.obj = [[SKSpriteNode alloc] initWithImageNamed: objImageName];
-        self.obj.name = paddleCategoryName;
-        self.obj.position = CGPointMake(self.frame.size.width/3, self.frame.size.height/3);
-        self.obj.size = CGSizeMake(300, 300);
-        [self addChild:self.obj];
-        SKTexture *objTexture = [SKTexture textureWithImageNamed:objImageName];
-        self.obj.physicsBody = [SKPhysicsBody bodyWithTexture:objTexture size:self.obj.size];
-        // 3
-        self.obj.physicsBody.friction = 0.0f;
-        // 4
-        self.obj.physicsBody.restitution = 1.0f;
-        // 5
-        self.obj.physicsBody.linearDamping = 0.0f;
-        // 6
-        self.obj.physicsBody.allowsRotation = NO;
-        self.obj.physicsBody.dynamic = NO;
-        self.obj.physicsBody.categoryBitMask = treeCategory;
-        self.obj.physicsBody.collisionBitMask = ballCategory;
+//        NSString *objImageName = @"tree.png";
+//        self.obj = [[SKSpriteNode alloc] initWithImageNamed: objImageName];
+//        self.obj.name = paddleCategoryName;
+//        self.obj.position = CGPointMake(self.frame.size.width/3, self.frame.size.height/3);
+//        self.obj.size = CGSizeMake(300, 300);
+//        [self addChild:self.obj];
+//        SKTexture *objTexture = [SKTexture textureWithImageNamed:objImageName];
+//        self.obj.physicsBody = [SKPhysicsBody bodyWithTexture:objTexture size:self.obj.size];
+//        // 3
+//        self.obj.physicsBody.friction = 0.0f;
+//        // 4
+//        self.obj.physicsBody.restitution = 1.0f;
+//        // 5
+//        self.obj.physicsBody.linearDamping = 0.0f;
+//        // 6
+//        self.obj.physicsBody.allowsRotation = NO;
+//        self.obj.physicsBody.dynamic = NO;
+//        self.obj.physicsBody.categoryBitMask = treeCategory;
+//        self.obj.physicsBody.collisionBitMask = ballCategory;
         
     }
     return self;
@@ -105,16 +105,7 @@ static const uint32_t treeCategory = 0x1 << 2;
     if(texture == nil){
         NSLog(@"Texture == nil");
     }
-//    self.env.physicsBody = [SKPhysicsBody bodyWithTexture:texture size:self.env.size];
-//    self.env.physicsBody.friction = 0.0f;
-//    self.env.physicsBody.restitution = 1.0f;
-//    self.env.physicsBody.linearDamping = 0.0f;
-//    self.env.physicsBody.allowsRotation = NO;
-//    self.env.physicsBody.dynamic = NO;
-//    self.env.physicsBody.categoryBitMask = envCategory;
-//    self.env.physicsBody.collisionBitMask = ballCategory;
     
-    //    + (instancetype)textureWithData:(NSData *)pixelData size:(CGSize)size flipped:(BOOL)flipped;
     if(self.envTexture == nil){
         self.envTexture = [[SKMutableTexture alloc]initWithSize:self.size];
         self.env.physicsBody = [SKPhysicsBody bodyWithTexture:self.envTexture size:self.size];
@@ -130,13 +121,10 @@ static const uint32_t treeCategory = 0x1 << 2;
     
     [self.envTexture modifyPixelDataWithBlock:^(void *pixelData, size_t lengthInBytes) {
         unsigned char *pixels = [self convertUIImageToBitmapRGBA8:image];
-//        for(int i = 0; i < lengthInBytes; i++){
-//            pixelData[i] = pixels[i];
-//        }
         pixelData = pixels;
-
         NSLog(@"update texture");
     }];
+    self.env.physicsBody = [SKPhysicsBody bodyWithTexture:self.envTexture size:self.size];
 }
 
 - (CGContextRef) newBitmapRGBA8ContextFromImage:(CGImageRef) image {
@@ -306,6 +294,7 @@ static const uint32_t treeCategory = 0x1 << 2;
 
 
 -(void)didBeginContact:(SKPhysicsContact*)contact {
+    NSLog(@"collision");
 //    // 1 Create local variables for two physics bodies
 //    SKPhysicsBody* firstBody;
 //    SKPhysicsBody* secondBody;
