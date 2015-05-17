@@ -18,6 +18,7 @@ static NSString* blockNodeCategoryName = @"blockNode";
 @property (nonatomic) BOOL isFingerOnPaddle;
 @property (nonatomic) CGPoint startPoint;
 @property (nonatomic, strong) SKSpriteNode* ball;
+@property (nonatomic, strong) SKSpriteNode* obj;
 @property (nonatomic, strong) SKMutableTexture *objTexture;
 @end
 
@@ -62,40 +63,59 @@ static NSString* blockNodeCategoryName = @"blockNode";
         
         
         NSString *objImageName = @"tree.png";
-        SKSpriteNode* obj = [[SKSpriteNode alloc] initWithImageNamed: objImageName];
-        obj.name = paddleCategoryName;
-        obj.position = CGPointMake(self.frame.size.width/3, self.frame.size.height/3);
-        obj.size = CGSizeMake(300, 300);
-        [self addChild:obj];
+        self.obj = [[SKSpriteNode alloc] initWithImageNamed: objImageName];
+        self.obj.name = paddleCategoryName;
+        self.obj.position = CGPointMake(self.frame.size.width/3, self.frame.size.height/3);
+        self.obj.size = CGSizeMake(300, 300);
+        [self addChild:self.obj];
         
         
-        SKTexture *objTexture = [SKTexture textureWithImageNamed:objImageName];
-        obj.physicsBody = [SKPhysicsBody bodyWithTexture:objTexture size:obj.size];
+        NSMutableData *data = [[NSMutableData alloc]initWithCapacity:300*300*4];
+        char on[4] = {0xFF, 0xFF, 0xFF, 0xFF};
+        char off[4] = {0x00, 0x00, 0x00, 0x00};
+        for(NSUInteger x = 0; x < 300; x++){
+            for(NSUInteger y = 0; y < 300; y++){
+                if(x >= 148 && x <= 152){
+                    [data appendBytes:on length:4];
+                } else {
+                    [data appendBytes:off length:4];
+                }
+            }
+        }
+        SKTexture *t = [SKTexture textureWithData:data size:CGSizeMake(300, 300)];
+        self.obj.physicsBody = [SKPhysicsBody bodyWithTexture:t size:self.obj.size];
+        
+        
+//        SKTexture *objTexture = [SKTexture textureWithImageNamed:objImageName];
+//        self.obj.physicsBody = [SKPhysicsBody bodyWithTexture:objTexture size:self.obj.size];
         // 3
-        obj.physicsBody.friction = 0.0f;
+        self.obj.physicsBody.friction = 0.0f;
         // 4
-        obj.physicsBody.restitution = 1.0f;
+        self.obj.physicsBody.restitution = 1.0f;
         // 5
-        obj.physicsBody.linearDamping = 0.0f;
+        self.obj.physicsBody.linearDamping = 0.0f;
         // 6
-        obj.physicsBody.allowsRotation = NO;
-        obj.physicsBody.dynamic = NO;
+        self.obj.physicsBody.allowsRotation = NO;
+        self.obj.physicsBody.dynamic = NO;
     }
     return self;
 }
 
 
--(void)updateTextureWithData:(NSData*)data size:(CGSize)size{
+-(void)updateTextureWithData:(void*)pixelData lengthInBytes:(size_t)lengthInBytes size:(CGSize)size{
     if(self.objTexture == nil){
-        self.objTexture = [SKMutableTexture textureWithData:data size:size];
+//        NSData *data = [NSData dataWithBytes:pixelData length:lengthInBytes];
+//        self.objTexture = [SKMutableTexture textureWithData:data size:size];
+//        self.obj.physicsBody = [SKPhysicsBody bodyWithTexture:self.objTexture size:size];
     } else {
         
-//        Modifies the contents of a mutable texture.
-//        The contents of the texture can be modified only at specific times when the graphics hardware permits it. When this method is called, it schedules a new background task to update the texture and then returns. Your block is called when the texture can be modified. Your block is called on an arbitrary queue. Your block should modify the texture’s contents and then return.
-//        The texture bytes are assumed to be stored as tightly packed 32 bpp, 8bpc (unsigned integer) RGBA pixel data. The color components you provide should have already been multiplied by the alpha value.
-        [self.objTexture modifyPixelDataWithBlock:^(void *pixelData, size_t lengthInBytes) {
-
-        }];
+////        Modifies the contents of a mutable texture.
+////        The contents of the texture can be modified only at specific times when the graphics hardware permits it. When this method is called, it schedules a new background task to update the texture and then returns. Your block is called when the texture can be modified. Your block is called on an arbitrary queue. Your block should modify the texture’s contents and then return.
+////        The texture bytes are assumed to be stored as tightly packed 32 bpp, 8bpc (unsigned integer) RGBA pixel data. The color components you provide should have already been multiplied by the alpha value.
+//
+//        [self.objTexture modifyPixelDataWithBlock:^(void *pixelData, size_t lengthInBytes) {
+//
+//        }];
     }
 }
 

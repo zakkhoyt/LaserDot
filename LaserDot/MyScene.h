@@ -11,5 +11,5 @@
 @interface MyScene : SKScene
 
 // TODO Call this from captureOutput;
--(void)updateTexture:(id)texture;
+-(void)updateTextureWithData:(void*)pixelData lengthInBytes:(size_t)lengthInBytes size:(CGSize)size;
 @end

@@ -44,6 +44,7 @@
 }
 @property (nonatomic, strong) SKView *skView;
 @property dispatch_queue_t avqueue;
+@property (nonatomic, strong) MyScene *myScene;
 @end
 
 @implementation GameViewController
@@ -65,11 +66,11 @@
         self.skView.showsNodeCount = YES;
         
         // Create and configure the scene.
-        SKScene * scene = [MyScene sceneWithSize:self.skView.bounds.size];
-        scene.scaleMode = SKSceneScaleModeAspectFill;
-        scene.backgroundColor = [UIColor clearColor];
+        self.myScene = [MyScene sceneWithSize:self.skView.bounds.size];
+        self.myScene.scaleMode = SKSceneScaleModeAspectFill;
+        self.myScene.backgroundColor = [UIColor clearColor];
         // Present the scene.
-        [self.skView presentScene:scene];
+        [self.skView presentScene:self.myScene];
     }
 }
 
@@ -304,6 +305,8 @@
 
 #pragma mark AVCaptureVideoDataOutputDelegate
 
+#define BYTES_PER_PIXEL 4
+
 -(void)captureOutput :(AVCaptureOutput *)captureOutput
 didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
        fromConnection:(AVCaptureConnection *)connection{
@@ -326,22 +329,81 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     CGImageRelease(quartzImage);
     
     
-    // Get RGBA of the center pixel and use that as a value set
-    NSUInteger halfWidth = floor(width/2.0);
-    NSUInteger halfHeight = floor(height/2.0);
+//    // Synchronously process the pixel buffer to de-green it.
+//    [self processPixelBuffer:imageBuffer];
+    CVPixelBufferLockBaseAddress( imageBuffer, 0 );
     
-    NSArray* pixels = [self getRGBAsFromImage:image atX:halfWidth andY:halfHeight count:1];
+    size_t bufferWidth = CVPixelBufferGetWidth(imageBuffer);
+    size_t bufferHeight = CVPixelBufferGetHeight(imageBuffer);
+    unsigned char *pixel = (unsigned char *)CVPixelBufferGetBaseAddress(imageBuffer);
     
-    UIColor* uicolor = pixels[0];
-    CGFloat red, green, blue, alpha = 0;
-    [uicolor getRed:&red green:&green blue:&blue alpha:&alpha];
+    for( int row = 0; row < bufferHeight; row++ ) {
+        for( int column = 0; column < bufferWidth; column++ ) {
+            //            pixel[1] = 0; // De-green (second pixel in BGRA is green)
+            //            pixel[0] = MAX(hudPixel[0], pixel[0]);
+            //            pixel[1] = MAX(hudPixel[1], pixel[1]);
+            //            pixel[2] = MAX(hudPixel[2], pixel[2]);
+            ////            pixel[3] += hudPixel[3];
+            
+            if(pixel[0] >= 128){
+                pixel[0] = 1;
+                pixel[1] = 1;
+                pixel[2] = 1;
+                pixel[3] = 1;
+            } else {
+                pixel[0] = 0;
+                pixel[1] = 0;
+                pixel[2] = 0;
+                pixel[3] = 0;
+            }
+            pixel += BYTES_PER_PIXEL;
+        }
+    }
+    
+    CVPixelBufferUnlockBaseAddress( imageBuffer, 0 );
+    
+    
+    [self.myScene updateTextureWithData:pixel lengthInBytes:(width * height * 4) size:CGSizeMake(width, height)];
+    
+    // Next pass it to our scene in order to update/create our SKTexture
     
 }
 
 
 
 
-
+//- (void)processPixelBuffer: (CVImageBufferRef)pixelBuffer{
+//    CVPixelBufferLockBaseAddress( pixelBuffer, 0 );
+//    
+//    size_t bufferWidth = CVPixelBufferGetWidth(pixelBuffer);
+//    size_t bufferHeight = CVPixelBufferGetHeight(pixelBuffer);
+//    unsigned char *pixel = (unsigned char *)CVPixelBufferGetBaseAddress(pixelBuffer);
+//    
+//    for( int row = 0; row < bufferHeight; row++ ) {
+//        for( int column = 0; column < bufferWidth; column++ ) {
+////            pixel[1] = 0; // De-green (second pixel in BGRA is green)
+//            //            pixel[0] = MAX(hudPixel[0], pixel[0]);
+//            //            pixel[1] = MAX(hudPixel[1], pixel[1]);
+//            //            pixel[2] = MAX(hudPixel[2], pixel[2]);
+//            ////            pixel[3] += hudPixel[3];
+//            
+//            if(pixel[0] >= 128){
+//                pixel[0] = 1;
+//                pixel[1] = 1;
+//                pixel[2] = 1;
+//                pixel[3] = 1;
+//            } else {
+//                pixel[0] = 0;
+//                pixel[1] = 0;
+//                pixel[2] = 0;
+//                pixel[3] = 0;
+//            }
+//            pixel += BYTES_PER_PIXEL;
+//        }
+//    }
+//    
+//    CVPixelBufferUnlockBaseAddress( pixelBuffer, 0 );
+//}
 
 
 @end
