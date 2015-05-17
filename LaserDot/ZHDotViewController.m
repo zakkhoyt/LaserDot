@@ -6,54 +6,34 @@
 //  Copyright (c) 2015 Zakk Hoyt. All rights reserved.
 //
 
-#import "GameViewController.h"
+#import "ZHDotViewController.h"
 #import "GameScene.h"
-#import "MyScene.h"
+#import "ZHDotScene.h"
 
 
 #include <sys/types.h>
 #include <sys/sysctl.h>
 @import AVFoundation;
 
-@implementation SKScene (Unarchive)
-
-+ (instancetype)unarchiveFromFile:(NSString *)file {
-    /* Retrieve scene file path from the application bundle */
-    NSString *nodePath = [[NSBundle mainBundle] pathForResource:file ofType:@"sks"];
-    /* Unarchive the file to an SKScene object */
-    NSData *data = [NSData dataWithContentsOfFile:nodePath
-                                          options:NSDataReadingMappedIfSafe
-                                            error:nil];
-    NSKeyedUnarchiver *arch = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-    [arch setClass:self forClassName:@"SKScene"];
-    SKScene *scene = [arch decodeObjectForKey:NSKeyedArchiveRootObjectKey];
-    [arch finishDecoding];
-    
-    return scene;
-}
-
-
-@end
-
-
-
-@interface GameViewController () <AVCaptureVideoDataOutputSampleBufferDelegate>{
-    AVCaptureSession *_session;
-    BOOL _cameraRunning;
-    AVCaptureVideoPreviewLayer *_videoPreviewLayer;
-}
+@interface ZHDotViewController () <AVCaptureVideoDataOutputSampleBufferDelegate>
+@property (nonatomic, strong) AVCaptureSession *session;
+@property (nonatomic, strong) AVCaptureVideoPreviewLayer *videoPreviewLayer;
+@property (nonatomic) BOOL cameraRunning;
 @property (nonatomic, strong) SKView *skView;
 @property dispatch_queue_t avqueue;
-@property (nonatomic, strong) MyScene *myScene;
+@property (nonatomic, strong) ZHDotScene *myScene;
+@property (weak, nonatomic) IBOutlet UIImageView *textureImageView;
 @end
 
-@implementation GameViewController
+@implementation ZHDotViewController
 
 - (void)viewDidLoad {
     self.skView = [[SKView alloc]initWithFrame:self.view.bounds];
     self.skView.allowsTransparency = YES;
     [self.view addSubview:self.skView];
     self.avqueue = dispatch_queue_create("com.vaporwarewolf.laserdot.camera", NULL);
+    
+    [self startCamera];
 }
 
 
@@ -66,7 +46,7 @@
         self.skView.showsNodeCount = YES;
         
         // Create and configure the scene.
-        self.myScene = [MyScene sceneWithSize:self.skView.bounds.size];
+        self.myScene = [ZHDotScene sceneWithSize:self.skView.bounds.size];
         self.myScene.scaleMode = SKSceneScaleModeAspectFill;
         self.myScene.backgroundColor = [UIColor clearColor];
         // Present the scene.
@@ -76,10 +56,10 @@
 
 
 
--(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    [self startCamera];
-}
+//-(void)viewDidAppear:(BOOL)animated{
+//    [super viewDidAppear:animated];
+//
+//}
 
 
 - (BOOL)shouldAutorotate {
@@ -172,7 +152,7 @@
     }
     
     [self.view.layer insertSublayer:_videoPreviewLayer below:self.skView.layer];
-
+    [self.view bringSubviewToFront:self.textureImageView];
     
     // ************************* configure AVCaptureSession to deliver raw frames via callback (as well as preview layer)
     AVCaptureVideoDataOutput *videoOutput = [[AVCaptureVideoDataOutput alloc] init];
@@ -185,7 +165,6 @@
     [videoOutput setSampleBufferDelegate:self queue:self.avqueue];
     
     if([_session canAddOutput:videoOutput]){
-        
         [_session addOutput:videoOutput];
         _cameraRunning = YES;
         [_session startRunning];
@@ -268,56 +247,58 @@
 }
 
 
-- (NSArray*)getRGBAsFromImage:(UIImage*)image atX:(NSInteger)xx andY:(NSInteger)yy count:(int)count{
-    NSMutableArray *result = [NSMutableArray arrayWithCapacity:count];
-    CGImageRef imageRef = [image CGImage];
-    NSUInteger width = CGImageGetWidth(imageRef);
-    NSUInteger height = CGImageGetHeight(imageRef);
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    unsigned char *rawData = (unsigned char*) calloc(height * width * 4, sizeof(unsigned char));
-    NSUInteger bytesPerPixel = 4;
-    NSUInteger bytesPerRow = bytesPerPixel * width;
-    NSUInteger bitsPerComponent = 8;
-    CGContextRef context = CGBitmapContextCreate(rawData, width, height,
-                                                 bitsPerComponent, bytesPerRow, colorSpace,
-                                                 kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
-    CGColorSpaceRelease(colorSpace);
-    
-    CGContextDrawImage(context, CGRectMake(0, 0, width, height), imageRef);
-    CGContextRelease(context);
-    
-    NSInteger byteIndex = (bytesPerRow * yy) + xx * bytesPerPixel;
-    for (int ii = 0 ; ii < count ; ++ii) {
-        CGFloat red   = (rawData[byteIndex]     * 1.0) / 255.0;
-        CGFloat green = (rawData[byteIndex + 1] * 1.0) / 255.0;
-        CGFloat blue  = (rawData[byteIndex + 2] * 1.0) / 255.0;
-        CGFloat alpha = (rawData[byteIndex + 3] * 1.0) / 255.0;
-        byteIndex += 4;
-        
-        UIColor *acolor = [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
-        [result addObject:acolor];
-    }
-    
-    free(rawData);
-    
-    return result;
-}
+
 
 #pragma mark AVCaptureVideoDataOutputDelegate
 
-#define BYTES_PER_PIXEL 4
 
--(void)captureOutput :(AVCaptureOutput *)captureOutput
-didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
-       fromConnection:(AVCaptureConnection *)connection{
+-(void)captureOutput :(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection{
+    // Throttle the frame processing.
+    // TODO: Throttle by setting the AV output's duration.
+    static NSUInteger counter = 0;
+    counter++;
+    if(counter % 10 == 0){
+        NSLog(@"counter: %lu", (unsigned long)counter++);
+    } else {
+        return;
+    }
+    
     
     // Get a copy of the buffer that we can work with:
     CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
     CVPixelBufferLockBaseAddress(imageBuffer, 0);
-    void *baseAddress = CVPixelBufferGetBaseAddress(imageBuffer);
+    
+    
+    unsigned char *baseAddress = CVPixelBufferGetBaseAddress(imageBuffer);
+    const NSUInteger kBytesPerPixel = 4;
     size_t bytesPerRow = CVPixelBufferGetBytesPerRow(imageBuffer);
     size_t width = CVPixelBufferGetWidth(imageBuffer);
     size_t height = CVPixelBufferGetHeight(imageBuffer);
+    
+    for(int row = 0; row < height;row++){
+        uint8_t *pixel = baseAddress + row * bytesPerRow;
+        for(int column = 0;column < width; column++){
+//            // Degreen
+//            pixel[1] = 0; // De-green (second pixel in BGRA is green)
+            
+            // Convert to alpya
+            if(pixel[0] < 0x50){
+                pixel[0] = 0xFF;
+                pixel[1] = 0xFF;
+                pixel[2] = 0xFF;
+                pixel[3] = 0x30;
+            } else {
+                pixel[0] = 0;
+                pixel[1] = 0;
+                pixel[2] = 0;
+                pixel[3] = 0;
+            }
+            pixel += kBytesPerPixel;
+        }
+    }
+
+    
+    
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = CGBitmapContextCreate(baseAddress, width, height, 8,
                                                  bytesPerRow, colorSpace, kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst);
@@ -325,85 +306,17 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     CVPixelBufferUnlockBaseAddress(imageBuffer,0);
     CGContextRelease(context);
     CGColorSpaceRelease(colorSpace);
-    UIImage *image = [UIImage imageWithCGImage:quartzImage];
+    
+    UIImage *textureImage = [UIImage imageWithCGImage:quartzImage];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.textureImageView.image = textureImage;
+        //        self.textureImageView.image = [self imageFromRGBA:pixel width:width height:height];
+        //        [self.myScene updateTextureWithData:pixel lengthInBytes:(width * height * 4) size:CGSizeMake(width, height)];
+    });
+    
     CGImageRelease(quartzImage);
-    
-    
-//    // Synchronously process the pixel buffer to de-green it.
-//    [self processPixelBuffer:imageBuffer];
-    CVPixelBufferLockBaseAddress( imageBuffer, 0 );
-    
-    size_t bufferWidth = CVPixelBufferGetWidth(imageBuffer);
-    size_t bufferHeight = CVPixelBufferGetHeight(imageBuffer);
-    unsigned char *pixel = (unsigned char *)CVPixelBufferGetBaseAddress(imageBuffer);
-    
-    for( int row = 0; row < bufferHeight; row++ ) {
-        for( int column = 0; column < bufferWidth; column++ ) {
-            //            pixel[1] = 0; // De-green (second pixel in BGRA is green)
-            //            pixel[0] = MAX(hudPixel[0], pixel[0]);
-            //            pixel[1] = MAX(hudPixel[1], pixel[1]);
-            //            pixel[2] = MAX(hudPixel[2], pixel[2]);
-            ////            pixel[3] += hudPixel[3];
-            
-            if(pixel[0] >= 128){
-                pixel[0] = 1;
-                pixel[1] = 1;
-                pixel[2] = 1;
-                pixel[3] = 1;
-            } else {
-                pixel[0] = 0;
-                pixel[1] = 0;
-                pixel[2] = 0;
-                pixel[3] = 0;
-            }
-            pixel += BYTES_PER_PIXEL;
-        }
-    }
-    
     CVPixelBufferUnlockBaseAddress( imageBuffer, 0 );
-    
-    
-    [self.myScene updateTextureWithData:pixel lengthInBytes:(width * height * 4) size:CGSizeMake(width, height)];
-    
-    // Next pass it to our scene in order to update/create our SKTexture
-    
 }
-
-
-
-
-//- (void)processPixelBuffer: (CVImageBufferRef)pixelBuffer{
-//    CVPixelBufferLockBaseAddress( pixelBuffer, 0 );
-//    
-//    size_t bufferWidth = CVPixelBufferGetWidth(pixelBuffer);
-//    size_t bufferHeight = CVPixelBufferGetHeight(pixelBuffer);
-//    unsigned char *pixel = (unsigned char *)CVPixelBufferGetBaseAddress(pixelBuffer);
-//    
-//    for( int row = 0; row < bufferHeight; row++ ) {
-//        for( int column = 0; column < bufferWidth; column++ ) {
-////            pixel[1] = 0; // De-green (second pixel in BGRA is green)
-//            //            pixel[0] = MAX(hudPixel[0], pixel[0]);
-//            //            pixel[1] = MAX(hudPixel[1], pixel[1]);
-//            //            pixel[2] = MAX(hudPixel[2], pixel[2]);
-//            ////            pixel[3] += hudPixel[3];
-//            
-//            if(pixel[0] >= 128){
-//                pixel[0] = 1;
-//                pixel[1] = 1;
-//                pixel[2] = 1;
-//                pixel[3] = 1;
-//            } else {
-//                pixel[0] = 0;
-//                pixel[1] = 0;
-//                pixel[2] = 0;
-//                pixel[3] = 0;
-//            }
-//            pixel += BYTES_PER_PIXEL;
-//        }
-//    }
-//    
-//    CVPixelBufferUnlockBaseAddress( pixelBuffer, 0 );
-//}
-
 
 @end

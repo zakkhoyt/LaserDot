@@ -1,0 +1,19 @@
+
+
+Simple release (v1.0)
+    * ToolTip (flick, clear)
+    * Single dot
+    * Audio
+        * Sounds on collision
+        * Integrate VWWTheremin by color
+
+(IAP)
+    * Change dot image/color
+    * Multiple dots
+
+
+Debug
+    * Texture preview layer
+    * Options for creating texture mask
+
+

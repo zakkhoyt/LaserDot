@@ -11,12 +11,15 @@
 		CF80058A1B08596A008B830D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CF8005891B08596A008B830D /* AppDelegate.m */; };
 		CF80058D1B08596A008B830D /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CF80058C1B08596A008B830D /* GameScene.m */; };
 		CF80058F1B08596A008B830D /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CF80058E1B08596A008B830D /* GameScene.sks */; };
-		CF8005921B08596A008B830D /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF8005911B08596A008B830D /* GameViewController.m */; };
+		CF8005921B08596A008B830D /* ZHDotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF8005911B08596A008B830D /* ZHDotViewController.m */; };
 		CF8005951B08596A008B830D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF8005931B08596A008B830D /* Main.storyboard */; };
 		CF8005971B08596B008B830D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF8005961B08596B008B830D /* Images.xcassets */; };
 		CF80059A1B08596B008B830D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF8005981B08596B008B830D /* LaunchScreen.xib */; };
 		CF8005A61B08596B008B830D /* LaserDotTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CF8005A51B08596B008B830D /* LaserDotTests.m */; };
-		CF8005B11B0859E0008B830D /* MyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CF8005B01B0859E0008B830D /* MyScene.m */; };
+		CF8005B11B0859E0008B830D /* ZHDotScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CF8005B01B0859E0008B830D /* ZHDotScene.m */; };
+		CFF71FC61B0924FA00CDE233 /* features.txt in Resources */ = {isa = PBXBuildFile; fileRef = CFF71FC51B0924FA00CDE233 /* features.txt */; };
+		CFF71FC81B09250900CDE233 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = CFF71FC71B09250900CDE233 /* README.md */; };
+		CFF71FCC1B09286400CDE233 /* SKScene+Unarchive.m in Sources */ = {isa = PBXBuildFile; fileRef = CFF71FCB1B09286400CDE233 /* SKScene+Unarchive.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,16 +41,20 @@
 		CF80058B1B08596A008B830D /* GameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
 		CF80058C1B08596A008B830D /* GameScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
 		CF80058E1B08596A008B830D /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
-		CF8005901B08596A008B830D /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
-		CF8005911B08596A008B830D /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		CF8005901B08596A008B830D /* ZHDotViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZHDotViewController.h; sourceTree = "<group>"; };
+		CF8005911B08596A008B830D /* ZHDotViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZHDotViewController.m; sourceTree = "<group>"; };
 		CF8005941B08596A008B830D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CF8005961B08596B008B830D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CF8005991B08596B008B830D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		CF80059F1B08596B008B830D /* LaserDotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LaserDotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF8005A41B08596B008B830D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CF8005A51B08596B008B830D /* LaserDotTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LaserDotTests.m; sourceTree = "<group>"; };
-		CF8005AF1B0859E0008B830D /* MyScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyScene.h; sourceTree = "<group>"; };
-		CF8005B01B0859E0008B830D /* MyScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyScene.m; sourceTree = "<group>"; };
+		CF8005AF1B0859E0008B830D /* ZHDotScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHDotScene.h; sourceTree = "<group>"; };
+		CF8005B01B0859E0008B830D /* ZHDotScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHDotScene.m; sourceTree = "<group>"; };
+		CFF71FC51B0924FA00CDE233 /* features.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = features.txt; sourceTree = "<group>"; };
+		CFF71FC71B09250900CDE233 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		CFF71FCA1B09286400CDE233 /* SKScene+Unarchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKScene+Unarchive.h"; sourceTree = "<group>"; };
+		CFF71FCB1B09286400CDE233 /* SKScene+Unarchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKScene+Unarchive.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,19 +96,13 @@
 		CF8005831B08596A008B830D /* LaserDot */ = {
 			isa = PBXGroup;
 			children = (
-				CF8005881B08596A008B830D /* AppDelegate.h */,
-				CF8005891B08596A008B830D /* AppDelegate.m */,
-				CF80058B1B08596A008B830D /* GameScene.h */,
-				CF80058C1B08596A008B830D /* GameScene.m */,
-				CF80058E1B08596A008B830D /* GameScene.sks */,
-				CF8005901B08596A008B830D /* GameViewController.h */,
-				CF8005911B08596A008B830D /* GameViewController.m */,
-				CF8005931B08596A008B830D /* Main.storyboard */,
-				CF8005961B08596B008B830D /* Images.xcassets */,
-				CF8005981B08596B008B830D /* LaunchScreen.xib */,
+				CFF71FCD1B0928AE00CDE233 /* Categories */,
+				CFF71FC91B09250E00CDE233 /* Documents */,
+				CFF71FC41B0924CE00CDE233 /* Resources */,
+				CFF71FC11B0924AF00CDE233 /* Scenes */,
 				CF8005841B08596A008B830D /* Supporting Files */,
-				CF8005AF1B0859E0008B830D /* MyScene.h */,
-				CF8005B01B0859E0008B830D /* MyScene.m */,
+				CFF71FC31B0924C000CDE233 /* UserInterface */,
+				CFF71FC21B0924B800CDE233 /* ViewControllers */,
 			);
 			path = LaserDot;
 			sourceTree = "<group>";
@@ -109,6 +110,8 @@
 		CF8005841B08596A008B830D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				CF8005881B08596A008B830D /* AppDelegate.h */,
+				CF8005891B08596A008B830D /* AppDelegate.m */,
 				CF8005851B08596A008B830D /* Info.plist */,
 				CF8005861B08596A008B830D /* main.m */,
 			);
@@ -130,6 +133,62 @@
 				CF8005A41B08596B008B830D /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CFF71FC11B0924AF00CDE233 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				CF80058B1B08596A008B830D /* GameScene.h */,
+				CF80058C1B08596A008B830D /* GameScene.m */,
+				CF80058E1B08596A008B830D /* GameScene.sks */,
+				CF8005AF1B0859E0008B830D /* ZHDotScene.h */,
+				CF8005B01B0859E0008B830D /* ZHDotScene.m */,
+			);
+			name = Scenes;
+			sourceTree = "<group>";
+		};
+		CFF71FC21B0924B800CDE233 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				CF8005901B08596A008B830D /* ZHDotViewController.h */,
+				CF8005911B08596A008B830D /* ZHDotViewController.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		CFF71FC31B0924C000CDE233 /* UserInterface */ = {
+			isa = PBXGroup;
+			children = (
+				CF8005931B08596A008B830D /* Main.storyboard */,
+				CF8005981B08596B008B830D /* LaunchScreen.xib */,
+			);
+			name = UserInterface;
+			sourceTree = "<group>";
+		};
+		CFF71FC41B0924CE00CDE233 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				CF8005961B08596B008B830D /* Images.xcassets */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		CFF71FC91B09250E00CDE233 /* Documents */ = {
+			isa = PBXGroup;
+			children = (
+				CFF71FC71B09250900CDE233 /* README.md */,
+				CFF71FC51B0924FA00CDE233 /* features.txt */,
+			);
+			name = Documents;
+			sourceTree = "<group>";
+		};
+		CFF71FCD1B0928AE00CDE233 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				CFF71FCA1B09286400CDE233 /* SKScene+Unarchive.h */,
+				CFF71FCB1B09286400CDE233 /* SKScene+Unarchive.m */,
+			);
+			name = Categories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -213,6 +272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CF80059A1B08596B008B830D /* LaunchScreen.xib in Resources */,
+				CFF71FC61B0924FA00CDE233 /* features.txt in Resources */,
 				CF8005971B08596B008B830D /* Images.xcassets in Resources */,
 				CF80058F1B08596A008B830D /* GameScene.sks in Resources */,
 				CF8005951B08596A008B830D /* Main.storyboard in Resources */,
@@ -233,11 +293,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CF8005921B08596A008B830D /* GameViewController.m in Sources */,
-				CF8005B11B0859E0008B830D /* MyScene.m in Sources */,
+				CFF71FC81B09250900CDE233 /* README.md in Sources */,
+				CF8005921B08596A008B830D /* ZHDotViewController.m in Sources */,
+				CF8005B11B0859E0008B830D /* ZHDotScene.m in Sources */,
 				CF80058A1B08596A008B830D /* AppDelegate.m in Sources */,
 				CF80058D1B08596A008B830D /* GameScene.m in Sources */,
 				CF8005871B08596A008B830D /* main.m in Sources */,
+				CFF71FCC1B09286400CDE233 /* SKScene+Unarchive.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
