@@ -16,16 +16,18 @@ static NSString* blockNodeCategoryName = @"blockNode";
 
 @interface MyScene ()
 @property (nonatomic) BOOL isFingerOnPaddle;
+@property (nonatomic) CGPoint startPoint;
+@property (nonatomic, strong) SKSpriteNode* ball;
 @end
 
 @implementation MyScene
 
 -(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
-        SKSpriteNode* background = [SKSpriteNode spriteNodeWithImageNamed:@"bg.png"];
-        background.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
-        [self addChild:background];
-        
+//        SKSpriteNode* background = [SKSpriteNode spriteNodeWithImageNamed:@"bg.png"];
+//        background.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+//        [self addChild:background];
+
         
         
         self.physicsWorld.gravity = CGVectorMake(0.0f, 0.0f);
@@ -45,15 +47,15 @@ static NSString* blockNodeCategoryName = @"blockNode";
         
         
         
-        SKSpriteNode* paddle = [[SKSpriteNode alloc] initWithImageNamed: @"paddle.png"];
-        paddle.name = paddleCategoryName;
-        paddle.position = CGPointMake(CGRectGetMidX(self.frame), paddle.frame.size.height * 0.6f);
-        [self addChild:paddle];
-        paddle.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:paddle.frame.size];
-        paddle.physicsBody.restitution = 0.1f;
-        paddle.physicsBody.friction = 0.4f;
-        // make physicsBody static
-        paddle.physicsBody.dynamic = NO;
+//        SKSpriteNode* paddle = [[SKSpriteNode alloc] initWithImageNamed: @"paddle.png"];
+//        paddle.name = paddleCategoryName;
+//        paddle.position = CGPointMake(CGRectGetMidX(self.frame), paddle.frame.size.height * 0.6f);
+//        [self addChild:paddle];
+//        paddle.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:paddle.frame.size];
+//        paddle.physicsBody.restitution = 0.1f;
+//        paddle.physicsBody.friction = 0.4f;
+//        // make physicsBody static
+//        paddle.physicsBody.dynamic = NO;
         
         
         
@@ -77,9 +79,6 @@ static NSString* blockNodeCategoryName = @"blockNode";
         // 6
         obj.physicsBody.allowsRotation = NO;
         obj.physicsBody.dynamic = NO;
-        
-        
-        
     }
     return self;
 }
@@ -90,25 +89,26 @@ static NSString* blockNodeCategoryName = @"blockNode";
     
     UITouch* touch = [touches anyObject];
     CGPoint touchLocation = [touch locationInNode:self];
-
+    self.startPoint = touchLocation;
+    
     
     // 1
-    SKSpriteNode* ball = [SKSpriteNode spriteNodeWithImageNamed: @"ball.png"];
-    ball.name = ballCategoryName;
-    ball.position = touchLocation;
-    [self addChild:ball];
+    self.ball = [SKSpriteNode spriteNodeWithImageNamed: @"ball.png"];
+    self.ball.name = ballCategoryName;
+    self.ball.position = self.startPoint;
+    [self addChild:self.ball];
     
     // 2
-    ball.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:ball.frame.size.width/2];
+    self.ball.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.ball.frame.size.width/2];
     // 3
-    ball.physicsBody.friction = 0.0f;
+    self.ball.physicsBody.friction = 0.0f;
     // 4
-    ball.physicsBody.restitution = 1.0f;
+    self.ball.physicsBody.restitution = 1.0f;
     // 5
-    ball.physicsBody.linearDamping = 0.0f;
+    self.ball.physicsBody.linearDamping = 0.0f;
     // 6
-    ball.physicsBody.allowsRotation = NO;
-    [ball.physicsBody applyImpulse:CGVectorMake(10.0f, -10.0f)];
+    self.ball.physicsBody.allowsRotation = NO;
+//    [ball.physicsBody applyImpulse:CGVectorMake(deltaX, deltaY)];
 
     
     
@@ -121,29 +121,48 @@ static NSString* blockNodeCategoryName = @"blockNode";
 //        NSLog(@"Began touch on paddle");
 //        self.isFingerOnPaddle = YES;
 //    }
+
 }
 
 -(void)touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event {
+    UITouch* touch = [touches anyObject];
+    CGPoint currentPoint = [touch locationInNode:self];
+    self.ball.position = currentPoint;
     
-    // 1 Check whether user tapped paddle
-    if (self.isFingerOnPaddle) {
-        // 2 Get touch location
-        UITouch* touch = [touches anyObject];
-        CGPoint touchLocation = [touch locationInNode:self];
-        CGPoint previousLocation = [touch previousLocationInNode:self];
-        // 3 Get node for paddle
-        SKSpriteNode* paddle = (SKSpriteNode*)[self childNodeWithName: paddleCategoryName];
-        // 4 Calculate new position along x for paddle
-        int paddleX = paddle.position.x + (touchLocation.x - previousLocation.x);
-        // 5 Limit x so that the paddle will not leave the screen to left or right
-        paddleX = MAX(paddleX, paddle.size.width/2);
-        paddleX = MIN(paddleX, self.size.width - paddle.size.width/2);
-        // 6 Update position of paddle
-        paddle.position = CGPointMake(paddleX, paddle.position.y);
-    }
+    
+    
+    
+    
+//    // 1 Check whether user tapped paddle
+//    if (self.isFingerOnPaddle) {
+//        // 2 Get touch location
+//        UITouch* touch = [touches anyObject];
+//        CGPoint touchLocation = [touch locationInNode:self];
+//        CGPoint previousLocation = [touch previousLocationInNode:self];
+//        // 3 Get node for paddle
+//        SKSpriteNode* paddle = (SKSpriteNode*)[self childNodeWithName: paddleCategoryName];
+//        // 4 Calculate new position along x for paddle
+//        int paddleX = paddle.position.x + (touchLocation.x - previousLocation.x);
+//        // 5 Limit x so that the paddle will not leave the screen to left or right
+//        paddleX = MAX(paddleX, paddle.size.width/2);
+//        paddleX = MIN(paddleX, self.size.width - paddle.size.width/2);
+//        // 6 Update position of paddle
+//        paddle.position = CGPointMake(paddleX, paddle.position.y);
+//    }
 }
 
 -(void)touchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
-    self.isFingerOnPaddle = NO;
+    UITouch* touch = [touches anyObject];
+    CGPoint endPoint = [touch locationInNode:self];
+    
+    
+
+    CGFloat deltaX = endPoint.x - self.startPoint.x;
+    CGFloat deltaY = endPoint.y - self.startPoint.y;
+    deltaX /= 10.0;
+    deltaY /= 10.0;
+    
+    [self.ball.physicsBody applyImpulse:CGVectorMake(deltaX, deltaY)];
+//    self.isFingerOnPaddle = NO;
 }
 @end
