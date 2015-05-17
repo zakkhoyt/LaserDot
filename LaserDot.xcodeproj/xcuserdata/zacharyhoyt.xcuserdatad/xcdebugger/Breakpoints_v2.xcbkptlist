@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LaserDot/GameViewController.m"
-            timestampString = "453536206.970797"
+            timestampString = "453536979.621861"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "185"
-            endingLineNumber = "185"
+            startingLineNumber = "170"
+            endingLineNumber = "170"
             landmarkName = "-startCamera"
             landmarkType = "5">
          </BreakpointContent>
@@ -36,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LaserDot/GameViewController.m"
-            timestampString = "453536206.970797"
+            timestampString = "453536979.621861"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "171"
-            endingLineNumber = "171"
+            startingLineNumber = "156"
+            endingLineNumber = "156"
             landmarkName = "-startCamera"
             landmarkType = "5">
          </BreakpointContent>
