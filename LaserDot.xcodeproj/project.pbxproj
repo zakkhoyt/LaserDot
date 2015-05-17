@@ -16,6 +16,7 @@
 		CF8005971B08596B008B830D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF8005961B08596B008B830D /* Images.xcassets */; };
 		CF80059A1B08596B008B830D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF8005981B08596B008B830D /* LaunchScreen.xib */; };
 		CF8005A61B08596B008B830D /* LaserDotTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CF8005A51B08596B008B830D /* LaserDotTests.m */; };
+		CF8005B11B0859E0008B830D /* MyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CF8005B01B0859E0008B830D /* MyScene.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,8 @@
 		CF80059F1B08596B008B830D /* LaserDotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LaserDotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF8005A41B08596B008B830D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CF8005A51B08596B008B830D /* LaserDotTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LaserDotTests.m; sourceTree = "<group>"; };
+		CF8005AF1B0859E0008B830D /* MyScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyScene.h; sourceTree = "<group>"; };
+		CF8005B01B0859E0008B830D /* MyScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyScene.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +100,8 @@
 				CF8005961B08596B008B830D /* Images.xcassets */,
 				CF8005981B08596B008B830D /* LaunchScreen.xib */,
 				CF8005841B08596A008B830D /* Supporting Files */,
+				CF8005AF1B0859E0008B830D /* MyScene.h */,
+				CF8005B01B0859E0008B830D /* MyScene.m */,
 			);
 			path = LaserDot;
 			sourceTree = "<group>";
@@ -229,6 +234,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CF8005921B08596A008B830D /* GameViewController.m in Sources */,
+				CF8005B11B0859E0008B830D /* MyScene.m in Sources */,
 				CF80058A1B08596A008B830D /* AppDelegate.m in Sources */,
 				CF80058D1B08596A008B830D /* GameScene.m in Sources */,
 				CF8005871B08596A008B830D /* main.m in Sources */,
@@ -428,6 +434,7 @@
 				CF8005AB1B08596B008B830D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CF8005AC1B08596B008B830D /* Build configuration list for PBXNativeTarget "LaserDotTests" */ = {
 			isa = XCConfigurationList;
@@ -436,6 +443,7 @@
 				CF8005AE1B08596B008B830D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
