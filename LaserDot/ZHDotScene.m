@@ -37,13 +37,6 @@ static const uint32_t treeCategory = 0x1 << 2;
 
         self.dots = [@[]mutableCopy];
                      
-        self.env = [[SKSpriteNode alloc]init];
-        self.env.name = @"env";
-        self.env.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
-        self.env.size = self.size;
-        [self addChild:self.env];
-        
-
         
         self.physicsWorld.contactDelegate = self;
         self.physicsWorld.gravity = CGVectorMake(0.0f, 0.0f);
@@ -51,7 +44,13 @@ static const uint32_t treeCategory = 0x1 << 2;
         SKPhysicsBody* borderBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
         self.physicsBody = borderBody;
         self.physicsBody.friction = 0.0f;
-        
+
+        self.env = [[SKSpriteNode alloc]init];
+        self.env.name = @"env";
+        self.env.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+        self.env.size = self.size;
+        [self addChild:self.env];
+
         
 //        NSMutableData *data = [[NSMutableData alloc]initWithCapacity:300*300*4];
 //        char on[4] = {0xFF, 0xFF, 0xFF, 0xFF};
@@ -115,14 +114,39 @@ static const uint32_t treeCategory = 0x1 << 2;
         self.env.physicsBody.dynamic = NO;
     }
     
+    
+    
+    NSMutableData *data = [[NSMutableData alloc]initWithCapacity:300*300*4];
+    char on[4] = {0xFF, 0xFF, 0xFF, 0xFF};
+    char off[4] = {0x00, 0x00, 0x00, 0x00};
+    for(NSUInteger x = 0; x < 300; x++){
+        for(NSUInteger y = 0; y < 300; y++){
+            if(x >= 148 && x <= 152){
+                [data appendBytes:on length:4];
+            } else {
+                [data appendBytes:off length:4];
+            }
+        }
+    }
     [self.envTexture modifyPixelDataWithBlock:^(void *pixelData, size_t lengthInBytes) {
-        pixelData = pixel;
+        uint8_t *byteData = (uint8_t*)malloc(data.length);
+        memcpy(byteData, data.bytes, data.length);
+        pixelData = byteData;
+        
+//        pixelData = pixel;
         NSLog(@"update texture");
     }];
-    
+    self.env.physicsBody = [SKPhysicsBody bodyWithTexture:self.envTexture alphaThreshold:0.5 size:self.env.size];
 
 }
 
+
+
+
+
+    
+    
+    
 -(void)updateTextureWithImage:(UIImage*)image{
     
 //    unsigned char *pixels = [self convertUIImageToBitmapRGBA8:image];
@@ -336,8 +360,6 @@ static const uint32_t treeCategory = 0x1 << 2;
     [self.dots addObject:self.ball];
     [self addChild:self.ball];
     self.ball.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.ball.frame.size.width/2];
-//    self.ball.physicsBody.categoryBitMask = ballCategory;
-//    self.ball.physicsBody.collisionBitMask = envCategory | treeCategory;
     self.ball.physicsBody.friction = 0.0f;
     self.ball.physicsBody.restitution = 1.0f;
     self.ball.physicsBody.linearDamping = 0.0f;
@@ -386,4 +408,10 @@ static const uint32_t treeCategory = 0x1 << 2;
 //        NSLog(@"Hit bottom. First contact has been made.");
 //    }
 }
+
+
+
+
+
+
 @end
