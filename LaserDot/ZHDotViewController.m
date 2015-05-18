@@ -322,6 +322,7 @@
 
     
     
+    // Convert baseAddress (pixel) to a UIImage
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = CGBitmapContextCreate(baseAddress, width, height, 8,
                                                  bytesPerRow, colorSpace, kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst);
@@ -329,14 +330,14 @@
     CVPixelBufferUnlockBaseAddress(imageBuffer,0);
     CGContextRelease(context);
     CGColorSpaceRelease(colorSpace);
-    
     UIImage *textureImage = [UIImage imageWithCGImage:quartzImage];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         self.textureImageView.image = textureImage;
 //        UIImage *i = [self imageWithView:self.textureImageView];
-        [self.myScene updateTextureWithImage:textureImage];
+//        [self.myScene updateTextureWithImage:textureImage];
 
+        [self.myScene updateTextureWithPixels:baseAddress length:width*height*4];
     });
     
     CGImageRelease(quartzImage);

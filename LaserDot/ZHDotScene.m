@@ -98,13 +98,43 @@ static const uint32_t treeCategory = 0x1 << 2;
 }
 
 
+-(void)updateTextureWithPixels:(uint8_t*)pixel length:(size_t)size{
+//    NSLog(@"pixels[0]: %02X", (uint8_t) pixel[0]);
+//    NSLog(@"pixels[1]: %02X", (uint8_t) pixel[1]);
+//    NSLog(@"pixels[2]: %02X", (uint8_t) pixel[2]);
+//    NSLog(@"pixels[3]: %02X", (uint8_t) pixel[3]);
+
+    
+    if(self.envTexture == nil){
+        self.envTexture = [SKMutableTexture mutableTextureWithSize:self.env.size];
+        self.env.physicsBody = [SKPhysicsBody bodyWithTexture:self.envTexture alphaThreshold:0.5 size:self.env.size];
+        self.env.physicsBody.friction = 0.0f;
+        self.env.physicsBody.restitution = 1.0f;
+        self.env.physicsBody.linearDamping = 0.0f;
+        self.env.physicsBody.allowsRotation = NO;
+        self.env.physicsBody.dynamic = NO;
+    }
+    
+    [self.envTexture modifyPixelDataWithBlock:^(void *pixelData, size_t lengthInBytes) {
+        pixelData = pixel;
+        NSLog(@"update texture");
+    }];
+    
+
+}
 
 -(void)updateTextureWithImage:(UIImage*)image{
     
+//    unsigned char *pixels = [self convertUIImageToBitmapRGBA8:image];
+//    NSLog(@"pixels[0]: %lu", (unsigned long) pixels[0]);
+//    NSLog(@"pixels[1]: %lu", (unsigned long) pixels[1]);
+//    NSLog(@"pixels[2]: %lu", (unsigned long) pixels[2]);
+//    NSLog(@"pixels[3]: %lu", (unsigned long) pixels[3]);
     
-//    if(self.envTexture == nil){
+    if(self.envTexture == nil){
 //        self.envTexture = [SKMutableTexture mutableTextureWithSize:self.env.size];
-//        self.env.physicsBody = [SKPhysicsBody bodyWithTexture:self.envTexture size:self.env.size];
+////        self.envTexture = [[SKTexture textureWithImage:image] mutableCopy];
+//        self.env.physicsBody = [SKPhysicsBody bodyWithTexture:self.envTexture alphaThreshold:0.5 size:self.env.size];
 //        self.env.physicsBody.friction = 0.0f;
 //        self.env.physicsBody.restitution = 1.0f;
 //        self.env.physicsBody.linearDamping = 0.0f;
@@ -112,9 +142,22 @@ static const uint32_t treeCategory = 0x1 << 2;
 //        self.env.physicsBody.dynamic = NO;
 ////        self.env.physicsBody.categoryBitMask = envCategory;
 ////        self.env.physicsBody.collisionBitMask = ballCategory;
-//    }
-//
-//    
+        
+        SKTexture *t = [SKTexture textureWithImage:image];
+        self.env.physicsBody = [SKPhysicsBody bodyWithTexture:t alphaThreshold:0.5 size:self.env.size];
+//        self.envTexture = [[SKTexture textureWithImage:image] mutableCopy];
+//        self.env.physicsBody = [SKPhysicsBody bodyWithTexture:self.envTexture alphaThreshold:0.5 size:self.env.size];
+        self.env.physicsBody.friction = 0.0f;
+        self.env.physicsBody.restitution = 1.0f;
+        self.env.physicsBody.linearDamping = 0.0f;
+        self.env.physicsBody.allowsRotation = NO;
+        self.env.physicsBody.dynamic = NO;
+        //        self.env.physicsBody.categoryBitMask = envCategory;
+        //        self.env.physicsBody.collisionBitMask = ballCategory;
+
+    }
+
+    
 //    [self.envTexture modifyPixelDataWithBlock:^(void *pixelData, size_t lengthInBytes) {
 //        unsigned char *pixels = [self convertUIImageToBitmapRGBA8:image];
 //        pixelData = pixels;
@@ -143,17 +186,17 @@ static const uint32_t treeCategory = 0x1 << 2;
 //    self.env.physicsBody.allowsRotation = NO;
 //    self.env.physicsBody.dynamic = NO;
 
-    static bool once = NO;
-    if(once == NO){
-        once = YES;
-        SKTexture *t = [SKTexture textureWithImage:image];
-        self.env.physicsBody = [SKPhysicsBody bodyWithTexture:t size:image.size];
-        self.env.physicsBody.friction = 0.0f;
-        self.env.physicsBody.restitution = 1.0f;
-        self.env.physicsBody.linearDamping = 0.0f;
-        self.env.physicsBody.allowsRotation = NO;
-        self.env.physicsBody.dynamic = NO;
-    }
+//    static bool once = NO;
+//    if(once == NO){
+//        once = YES;
+//        SKTexture *t = [SKTexture textureWithImage:image];
+//        self.env.physicsBody = [SKPhysicsBody bodyWithTexture:t size:image.size];
+//        self.env.physicsBody.friction = 0.0f;
+//        self.env.physicsBody.restitution = 1.0f;
+//        self.env.physicsBody.linearDamping = 0.0f;
+//        self.env.physicsBody.allowsRotation = NO;
+//        self.env.physicsBody.dynamic = NO;
+//    }
 
     
 }
