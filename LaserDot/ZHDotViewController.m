@@ -300,10 +300,15 @@
             
             // Convert to alpya
             if(pixel[0] < 0x50){
-                pixel[0] = 0x00; // b
-                pixel[1] = 0x00; // g
+//                pixel[0] = 0x00; // b
+//                pixel[1] = 0x00; // g
+//                pixel[2] = 0xFF; // r
+//                pixel[3] = 0xFF; // a
+                pixel[0] = 0xFF; // b
+                pixel[1] = 0xFF; // g
                 pixel[2] = 0xFF; // r
                 pixel[3] = 0xFF; // a
+
             } else {
                 pixel[0] = 0;
                 pixel[1] = 0;

@@ -101,30 +101,61 @@ static const uint32_t treeCategory = 0x1 << 2;
 
 -(void)updateTextureWithImage:(UIImage*)image{
     
-    SKTexture *texture = [SKTexture textureWithImage:image];
-    if(texture == nil){
-        NSLog(@"Texture == nil");
-    }
     
-    if(self.envTexture == nil){
-        self.envTexture = [[SKMutableTexture alloc]initWithSize:self.size];
-        self.env.physicsBody = [SKPhysicsBody bodyWithTexture:self.envTexture size:self.size];
+//    if(self.envTexture == nil){
+//        self.envTexture = [SKMutableTexture mutableTextureWithSize:self.env.size];
+//        self.env.physicsBody = [SKPhysicsBody bodyWithTexture:self.envTexture size:self.env.size];
+//        self.env.physicsBody.friction = 0.0f;
+//        self.env.physicsBody.restitution = 1.0f;
+//        self.env.physicsBody.linearDamping = 0.0f;
+//        self.env.physicsBody.allowsRotation = NO;
+//        self.env.physicsBody.dynamic = NO;
+////        self.env.physicsBody.categoryBitMask = envCategory;
+////        self.env.physicsBody.collisionBitMask = ballCategory;
+//    }
+//
+//    
+//    [self.envTexture modifyPixelDataWithBlock:^(void *pixelData, size_t lengthInBytes) {
+//        unsigned char *pixels = [self convertUIImageToBitmapRGBA8:image];
+//        pixelData = pixels;
+//        NSLog(@"update texture");
+//    }];
+
+    
+    
+//    NSMutableData *data = [[NSMutableData alloc]initWithCapacity:300*300*4];
+//    char on[4] = {0xFF, 0xFF, 0xFF, 0xFF};
+//    char off[4] = {0x00, 0x00, 0x00, 0x00};
+//    for(NSUInteger x = 0; x < 300; x++){
+//        for(NSUInteger y = 0; y < 300; y++){
+//            if(x >= 148 && x <= 152){
+//                [data appendBytes:on length:4];
+//            } else {
+//                [data appendBytes:off length:4];
+//            }
+//        }
+//    }
+//    SKTexture *t = [SKTexture textureWithData:data size:CGSizeMake(300, 300)];
+//    self.env.physicsBody = [SKPhysicsBody bodyWithTexture:t size:self.size];
+//    self.env.physicsBody.friction = 0.0f;
+//    self.env.physicsBody.restitution = 1.0f;
+//    self.env.physicsBody.linearDamping = 0.0f;
+//    self.env.physicsBody.allowsRotation = NO;
+//    self.env.physicsBody.dynamic = NO;
+
+    static bool once = NO;
+    if(once == NO){
+        once = YES;
+        SKTexture *t = [SKTexture textureWithImage:image];
+        self.env.physicsBody = [SKPhysicsBody bodyWithTexture:t size:image.size];
         self.env.physicsBody.friction = 0.0f;
         self.env.physicsBody.restitution = 1.0f;
         self.env.physicsBody.linearDamping = 0.0f;
         self.env.physicsBody.allowsRotation = NO;
         self.env.physicsBody.dynamic = NO;
-        self.env.physicsBody.categoryBitMask = envCategory;
-        self.env.physicsBody.collisionBitMask = ballCategory;
     }
 
     
-    [self.envTexture modifyPixelDataWithBlock:^(void *pixelData, size_t lengthInBytes) {
-        unsigned char *pixels = [self convertUIImageToBitmapRGBA8:image];
-        pixelData = pixels;
-        NSLog(@"update texture");
-    }];
-    self.env.physicsBody = [SKPhysicsBody bodyWithTexture:self.envTexture size:self.size];
 }
 
 - (CGContextRef) newBitmapRGBA8ContextFromImage:(CGImageRef) image {
@@ -262,8 +293,8 @@ static const uint32_t treeCategory = 0x1 << 2;
     [self.dots addObject:self.ball];
     [self addChild:self.ball];
     self.ball.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.ball.frame.size.width/2];
-    self.ball.physicsBody.categoryBitMask = ballCategory;
-    self.ball.physicsBody.collisionBitMask = envCategory | treeCategory;
+//    self.ball.physicsBody.categoryBitMask = ballCategory;
+//    self.ball.physicsBody.collisionBitMask = envCategory | treeCategory;
     self.ball.physicsBody.friction = 0.0f;
     self.ball.physicsBody.restitution = 1.0f;
     self.ball.physicsBody.linearDamping = 0.0f;
