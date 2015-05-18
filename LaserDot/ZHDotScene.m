@@ -45,11 +45,11 @@ static const uint32_t treeCategory = 0x1 << 2;
         self.physicsBody = borderBody;
         self.physicsBody.friction = 0.0f;
 
-        self.env = [[SKSpriteNode alloc]init];
-        self.env.name = @"env";
-        self.env.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
-        self.env.size = self.size;
-        [self addChild:self.env];
+//        self.env = [[SKSpriteNode alloc]init];
+//        self.env.name = @"env";
+//        self.env.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+//        self.env.size = self.size;
+//        [self addChild:self.env];
 
         
 //        NSMutableData *data = [[NSMutableData alloc]initWithCapacity:300*300*4];
@@ -104,49 +104,75 @@ static const uint32_t treeCategory = 0x1 << 2;
 //    NSLog(@"pixels[3]: %02X", (uint8_t) pixel[3]);
 
     
-    if(self.envTexture == nil){
-        self.envTexture = [SKMutableTexture mutableTextureWithSize:self.env.size];
-        self.env.physicsBody = [SKPhysicsBody bodyWithTexture:self.envTexture alphaThreshold:0.5 size:self.env.size];
+//    if(self.envTexture == nil){
+//        self.envTexture = [SKMutableTexture mutableTextureWithSize:self.env.size];
+//        self.env.physicsBody = [SKPhysicsBody bodyWithTexture:self.envTexture alphaThreshold:0.5 size:self.env.size];
+//        self.env.physicsBody.friction = 0.0f;
+//        self.env.physicsBody.restitution = 1.0f;
+//        self.env.physicsBody.linearDamping = 0.0f;
+//        self.env.physicsBody.allowsRotation = NO;
+//        self.env.physicsBody.dynamic = NO;
+//    }
+//    
+//    
+//    
+//    NSMutableData *data = [[NSMutableData alloc]initWithCapacity:300*300*4];
+//    char on[4] = {0xFF, 0xFF, 0xFF, 0xFF};
+//    char off[4] = {0x00, 0x00, 0x00, 0x00};
+//    for(NSUInteger x = 0; x < 300; x++){
+//        for(NSUInteger y = 0; y < 300; y++){
+//            if(x >= 148 && x <= 152){
+//                [data appendBytes:on length:4];
+//            } else {
+//                [data appendBytes:off length:4];
+//            }
+//        }
+//    }
+//    [self.envTexture modifyPixelDataWithBlock:^(void *pixelData, size_t lengthInBytes) {
+//        uint8_t *byteData = (uint8_t*)malloc(data.length);
+//        memcpy(byteData, data.bytes, data.length);
+//        pixelData = byteData;
+//        
+////        pixelData = pixel;
+//        NSLog(@"update texture");
+//    }];
+//    self.env.physicsBody = [SKPhysicsBody bodyWithTexture:self.envTexture alphaThreshold:0.5 size:self.env.size];
+
+    
+    if(self.env){
+        [self.env removeChildrenInArray:@[self.env]];
+    }
+        self.env = [[SKSpriteNode alloc]init];
+        self.env.name = @"env";
+        self.env.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+        self.env.size = self.size;
+        [self addChild:self.env];
+        
+        
+        
+        NSData* data = [NSData dataWithBytes:(const void *)pixel length:sizeof(unsigned char)*size];
+        SKTexture *text = [SKTexture textureWithData:data size:self.size];
+        self.env.physicsBody = [SKPhysicsBody bodyWithTexture:text alphaThreshold:0.5 size:self.env.size];
         self.env.physicsBody.friction = 0.0f;
         self.env.physicsBody.restitution = 1.0f;
         self.env.physicsBody.linearDamping = 0.0f;
         self.env.physicsBody.allowsRotation = NO;
         self.env.physicsBody.dynamic = NO;
-    }
-    
-    
-    
-    NSMutableData *data = [[NSMutableData alloc]initWithCapacity:300*300*4];
-    char on[4] = {0xFF, 0xFF, 0xFF, 0xFF};
-    char off[4] = {0x00, 0x00, 0x00, 0x00};
-    for(NSUInteger x = 0; x < 300; x++){
-        for(NSUInteger y = 0; y < 300; y++){
-            if(x >= 148 && x <= 152){
-                [data appendBytes:on length:4];
-            } else {
-                [data appendBytes:off length:4];
-            }
-        }
-    }
-    [self.envTexture modifyPixelDataWithBlock:^(void *pixelData, size_t lengthInBytes) {
-        uint8_t *byteData = (uint8_t*)malloc(data.length);
-        memcpy(byteData, data.bytes, data.length);
-        pixelData = byteData;
-        
-//        pixelData = pixel;
-        NSLog(@"update texture");
-    }];
-    self.env.physicsBody = [SKPhysicsBody bodyWithTexture:self.envTexture alphaThreshold:0.5 size:self.env.size];
+//    }
 
+    
+    
+    
+    
 }
 
 
 
 
 
-    
-    
-    
+
+
+
 -(void)updateTextureWithImage:(UIImage*)image{
     
 //    unsigned char *pixels = [self convertUIImageToBitmapRGBA8:image];
