@@ -9,10 +9,6 @@
 #import <SpriteKit/SpriteKit.h>
 
 @interface ZHDotScene : SKScene
-
 -(void)clearAllDots;
-// TODO Call this from captureOutput;
--(void)updateTextureWithData:(void*)pixelData lengthInBytes:(size_t)lengthInBytes size:(CGSize)size;
 -(void)updateTextureWithImage:(UIImage*)image;
--(void)updateTextureWithPixels:(uint8_t*)pixel length:(size_t)size;
 @end

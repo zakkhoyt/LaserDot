@@ -79,7 +79,6 @@
                         <outlet property="cameraButton" destination="xlB-7L-Tmc" id="JGt-AN-VP2"/>
                         <outlet property="closeButton" destination="wU4-pP-0YJ" id="80d-Y3-jgI"/>
                         <outlet property="settingsView" destination="Jkv-oq-xM2" id="Kdi-bR-S9E"/>
-                        <outlet property="textureImageView" destination="lrK-hr-tz2" id="CcX-pE-4vW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A9R-o4-leM" userLabel="First Responder" sceneMemberID="firstResponder"/>

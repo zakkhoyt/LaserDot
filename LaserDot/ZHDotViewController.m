@@ -19,7 +19,6 @@
 @interface ZHDotViewController ()
 @property (nonatomic, strong) SKView *skView;
 @property (nonatomic, strong) ZHDotScene *dotScene;
-@property (weak, nonatomic) IBOutlet UIImageView *textureImageView;
 @property (nonatomic) CGFloat alphaThreshold;
 @property (weak, nonatomic) IBOutlet UIView *settingsView;
 @property (weak, nonatomic) IBOutlet UISlider *alphaThresholdSlider;
@@ -45,8 +44,6 @@
     [self.view addSubview:self.skView];
     self.avqueue = dispatch_queue_create("com.vaporwarewolf.laserdot.camera", NULL);
     
-    self.textureImageView.transform = CGAffineTransformMakeRotation(M_PI);
-    self.textureImageView.alpha = 0.4;
     self.alphaThreshold = 0.5;
     [self startCamera];
     
@@ -186,11 +183,10 @@
     AVCaptureConnection *previewLayerConnection=self.videoPreviewLayer.connection;
     
     if ([previewLayerConnection isVideoOrientationSupported]){
-        [previewLayerConnection setVideoOrientation:AVCaptureVideoOrientationLandscapeLeft];
+        [previewLayerConnection setVideoOrientation:AVCaptureVideoOrientationLandscapeRight];
     }
     
     [self.view.layer insertSublayer:self.videoPreviewLayer below:self.skView.layer];
-    [self.view bringSubviewToFront:self.textureImageView];
     
     // ************************* configure AVCaptureSession to deliver raw frames via callback (as well as preview layer)
     AVCaptureVideoDataOutput *videoOutput = [[AVCaptureVideoDataOutput alloc] init];
@@ -314,9 +310,6 @@
     size_t height = CVPixelBufferGetHeight(imageBuffer);
 
     
-    // TODO: We need to rotate this image about the Z axis for M_PI.
-    // Using a transform on the layer works for display but it will create our texture mask backwards.
-    
     for(int row = 0; row < height;row++){
         uint8_t *pixel = baseAddress + row * bytesPerRow;
         for(int column = 0;column < width; column++){
@@ -324,16 +317,11 @@
 //            pixel[1] = 0; // De-green (second pixel in BGRA is green)
             
             // Convert to alpya
-            if(pixel[0] < 0x50){
-                pixel[0] = 0x00 * self.alphaThreshold; // b
-                pixel[1] = 0x00 * self.alphaThreshold; // g
-                pixel[2] = 0xFF * self.alphaThreshold; // r
-                pixel[3] = 0xFF * self.alphaThreshold; // a
-//                pixel[0] = 0xFF * self.alphaThreshold; // b
-//                pixel[1] = 0xFF * self.alphaThreshold; // g
-//                pixel[2] = 0xFF * self.alphaThreshold; // r
-//                pixel[3] = 0xFF * self.alphaThreshold; // a
-
+            if(pixel[0] < 0xFF * self.alphaThreshold){
+                pixel[0] = 0x00; // b
+                pixel[1] = 0x00; // g
+                pixel[2] = 0xFF; // r
+                pixel[3] = 0xFF; // a
             } else {
                 pixel[0] = 0;
                 pixel[1] = 0;
@@ -343,26 +331,21 @@
             pixel += kBytesPerPixel;
         }
     }
-
-
     
-    
-    // Convert baseAddress (pixel) to a UIImage
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = CGBitmapContextCreate(baseAddress, width, height, 8,
                                                  bytesPerRow, colorSpace, kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst);
+    
+    CGContextTranslateCTM(context, 0, height);
     CGImageRef quartzImage = CGBitmapContextCreateImage(context);
+    UIImage *textureImage = [UIImage imageWithCGImage:quartzImage];
+    
     CVPixelBufferUnlockBaseAddress(imageBuffer,0);
     CGContextRelease(context);
     CGColorSpaceRelease(colorSpace);
-    UIImage *textureImage = [UIImage imageWithCGImage:quartzImage];
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.textureImageView.image = textureImage;
-//        UIImage *i = [self imageWithView:self.textureImageView];
-//        [self.myScene updateTextureWithImage:textureImage];
-
-        [self.dotScene updateTextureWithPixels:baseAddress length:width*height*4];
+        [self.dotScene updateTextureWithImage:textureImage];
     });
     
     CGImageRelease(quartzImage);
