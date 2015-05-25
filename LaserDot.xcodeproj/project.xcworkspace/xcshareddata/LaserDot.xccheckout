@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>884DA159-1822-403A-B5D7-DFDEC185F467</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>LaserDot</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>3763A2CD3F7F53451E3847DFFD638F1C809DB9A5</key>
 		<string>github.com:zakkhoyt/LaserDot.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>LaserDot.xcodeproj/project.xcworkspace</string>
+	<string>LaserDot.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>3763A2CD3F7F53451E3847DFFD638F1C809DB9A5</key>

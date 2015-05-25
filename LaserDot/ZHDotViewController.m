@@ -10,19 +10,31 @@
 #import "GameScene.h"
 #import "ZHDotScene.h"
 
-
 #include <sys/types.h>
 #include <sys/sysctl.h>
 @import AVFoundation;
 
-@interface ZHDotViewController () <AVCaptureVideoDataOutputSampleBufferDelegate>
+
+
+@interface ZHDotViewController ()
+@property (nonatomic, strong) SKView *skView;
+@property (nonatomic, strong) ZHDotScene *dotScene;
+@property (weak, nonatomic) IBOutlet UIImageView *textureImageView;
+@property (nonatomic) CGFloat alphaThreshold;
+@property (weak, nonatomic) IBOutlet UIView *settingsView;
+@property (weak, nonatomic) IBOutlet UISlider *alphaThresholdSlider;
+@property (weak, nonatomic) IBOutlet UIButton *cameraButton;
+@property (weak, nonatomic) IBOutlet UIButton *closeButton;
+
+@property dispatch_queue_t avqueue;
 @property (nonatomic, strong) AVCaptureSession *session;
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *videoPreviewLayer;
 @property (nonatomic) BOOL cameraRunning;
-@property (nonatomic, strong) SKView *skView;
-@property dispatch_queue_t avqueue;
-@property (nonatomic, strong) ZHDotScene *myScene;
-@property (weak, nonatomic) IBOutlet UIImageView *textureImageView;
+@end
+
+@interface ZHDotViewController (AVFoundation) <AVCaptureVideoDataOutputSampleBufferDelegate>
+-(void)toggleCamera;
+-(void)startCamera;
 @end
 
 @implementation ZHDotViewController
@@ -35,7 +47,10 @@
     
     self.textureImageView.transform = CGAffineTransformMakeRotation(M_PI);
     self.textureImageView.alpha = 0.4;
+    self.alphaThreshold = 0.5;
     [self startCamera];
+    
+    self.alphaThresholdSlider.value = self.alphaThreshold;
     
     
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPress:)];
@@ -53,28 +68,23 @@
         self.skView.showsNodeCount = YES;
         
         // Create and configure the scene.
-        self.myScene = [ZHDotScene sceneWithSize:self.skView.bounds.size];
-        self.myScene.scaleMode = SKSceneScaleModeAspectFill;
-        self.myScene.backgroundColor = [UIColor clearColor];
+        self.dotScene = [ZHDotScene sceneWithSize:self.skView.bounds.size];
+        self.dotScene.scaleMode = SKSceneScaleModeAspectFill;
+        self.dotScene.backgroundColor = [UIColor clearColor];
         // Present the scene.
-        [self.skView presentScene:self.myScene];
+        [self.skView presentScene:self.dotScene];
     }
 }
-
-
-
-//-(void)viewDidAppear:(BOOL)animated{
-//    [super viewDidAppear:animated];
-//
-//}
 
 
 - (BOOL)shouldAutorotate {
     return YES;
 }
 
+
+
+// TOOD: Update this to transitioncoordinators
 - (NSUInteger)supportedInterfaceOrientations {
-    // TOOD: Update this to transitioncoordinators
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         return UIInterfaceOrientationMaskAllButUpsideDown;
     } else {
@@ -93,18 +103,33 @@
 #pragma mark IBActions
 -(void)longPress:(UILongPressGestureRecognizer*)sender{
     if(sender.state == UIGestureRecognizerStateBegan){
-        [self.myScene clearAllDots];
+        [self.view bringSubviewToFront:self.settingsView];
     }
 }
 
+- (IBAction)alphaThresholdSliderValueChanged:(UISlider*)sender {
+    self.alphaThreshold = sender.value;
+}
+- (IBAction)cameraButtonTouchUpInside:(id)sender {
+//    [self toggleCamera];
+    [self.dotScene clearAllDots];
+
+}
+- (IBAction)closeButtonTouchUpInside:(id)sender {
+    [self.view sendSubviewToBack:self.settingsView];
+}
+
+@end
+
+@implementation ZHDotViewController (AVFoundation)
 #pragma mark AVFoundation stuff
 
 
 -(void)startCamera{
-    if(_cameraRunning == YES) return;
+    if(self.cameraRunning == YES) return;
     
-    _session = [[AVCaptureSession alloc] init];
-    _session.sessionPreset = AVCaptureSessionPresetMedium;
+    self.session = [[AVCaptureSession alloc] init];
+    self.session.sessionPreset = AVCaptureSessionPresetMedium;
     
     AVCaptureDevice *device = [self cameraWithPosition:AVCaptureDevicePositionBack];
     NSError *error = nil;
@@ -144,27 +169,27 @@
         }
     }
     
-    if([_session canAddInput:input]){
-        [_session addInput:input];
+    if([self.session canAddInput:input]){
+        [self.session addInput:input];
     } else {
         NSLog(@"Can't add input. Returing");
         return;
     }
     
-    _videoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:_session];
-    _videoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    self.videoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.session];
+    self.videoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
 
     
-    _videoPreviewLayer.frame = self.skView.bounds;
+    self.videoPreviewLayer.frame = self.skView.bounds;
     
     
-    AVCaptureConnection *previewLayerConnection=_videoPreviewLayer.connection;
+    AVCaptureConnection *previewLayerConnection=self.videoPreviewLayer.connection;
     
     if ([previewLayerConnection isVideoOrientationSupported]){
         [previewLayerConnection setVideoOrientation:AVCaptureVideoOrientationLandscapeLeft];
     }
     
-    [self.view.layer insertSublayer:_videoPreviewLayer below:self.skView.layer];
+    [self.view.layer insertSublayer:self.videoPreviewLayer below:self.skView.layer];
     [self.view bringSubviewToFront:self.textureImageView];
     
     // ************************* configure AVCaptureSession to deliver raw frames via callback (as well as preview layer)
@@ -177,26 +202,26 @@
     [videoOutput setAlwaysDiscardsLateVideoFrames:YES];
     [videoOutput setSampleBufferDelegate:self queue:self.avqueue];
     
-    if([_session canAddOutput:videoOutput]){
-        [_session addOutput:videoOutput];
-        _cameraRunning = YES;
-        [_session startRunning];
+    if([self.session canAddOutput:videoOutput]){
+        [self.session addOutput:videoOutput];
+        self.cameraRunning = YES;
+        [self.session startRunning];
     }
     else {
         NSLog(@"Could not add videoOutput");
-        _cameraRunning = NO;
+        self.cameraRunning = NO;
     }
 }
 
 -(void)stopCamera{
-    if(_cameraRunning == NO) return;
+    if(self.cameraRunning == NO) return;
     
     NSLog(@"Stop the camera capturing");
-    [_session stopRunning];
-    [_videoPreviewLayer removeFromSuperlayer];
-    _videoPreviewLayer = nil;
-    _session = nil;
-    _cameraRunning = NO;
+    [self.session stopRunning];
+    [self.videoPreviewLayer removeFromSuperlayer];
+    self.videoPreviewLayer = nil;
+    self.session = nil;
+    self.cameraRunning = NO;
 }
 
 -(NSString*)deviceHardwareName{
@@ -236,13 +261,13 @@
 
 //Change camera source
 -(void)toggleCamera{
-    if(_session) {
+    if(self.session) {
         //Indicate that some changes will be made to the session
-        [_session beginConfiguration];
+        [self.session beginConfiguration];
         
         //Remove existing input
-        AVCaptureInput* currentCameraInput = [_session.inputs objectAtIndex:0];
-        [_session removeInput:currentCameraInput];
+        AVCaptureInput* currentCameraInput = [self.session.inputs objectAtIndex:0];
+        [self.session removeInput:currentCameraInput];
         
         //Get new input
         AVCaptureDevice *newCamera = nil;
@@ -253,9 +278,9 @@
         }
         
         AVCaptureDeviceInput *newVideoInput = [[AVCaptureDeviceInput alloc] initWithDevice:newCamera error:nil];
-        [_session addInput:newVideoInput];
+        [self.session addInput:newVideoInput];
         
-        [_session commitConfiguration];
+        [self.session commitConfiguration];
     }
 }
 
@@ -271,7 +296,7 @@
     static NSUInteger counter = 0;
     counter++;
     if(counter % 10 == 0){
-        NSLog(@"counter: %lu", (unsigned long)counter++);
+//        NSLog(@"counter: %lu", (unsigned long)counter++);
     } else {
         return;
     }
@@ -300,14 +325,14 @@
             
             // Convert to alpya
             if(pixel[0] < 0x50){
-//                pixel[0] = 0x00; // b
-//                pixel[1] = 0x00; // g
-//                pixel[2] = 0xFF; // r
-//                pixel[3] = 0xFF; // a
-                pixel[0] = 0xFF; // b
-                pixel[1] = 0xFF; // g
-                pixel[2] = 0xFF; // r
-                pixel[3] = 0xFF; // a
+                pixel[0] = 0x00 * self.alphaThreshold; // b
+                pixel[1] = 0x00 * self.alphaThreshold; // g
+                pixel[2] = 0xFF * self.alphaThreshold; // r
+                pixel[3] = 0xFF * self.alphaThreshold; // a
+//                pixel[0] = 0xFF * self.alphaThreshold; // b
+//                pixel[1] = 0xFF * self.alphaThreshold; // g
+//                pixel[2] = 0xFF * self.alphaThreshold; // r
+//                pixel[3] = 0xFF * self.alphaThreshold; // a
 
             } else {
                 pixel[0] = 0;
@@ -337,7 +362,7 @@
 //        UIImage *i = [self imageWithView:self.textureImageView];
 //        [self.myScene updateTextureWithImage:textureImage];
 
-        [self.myScene updateTextureWithPixels:baseAddress length:width*height*4];
+        [self.dotScene updateTextureWithPixels:baseAddress length:width*height*4];
     });
     
     CGImageRelease(quartzImage);
