@@ -17,21 +17,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PZ8-PU-zSn" customClass="GPUImageView">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4uG-XY-U6g">
+                                <rect key="frame" x="285" y="562" width="30" height="30"/>
+                                <state key="normal" title="Rec">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="recordButtonTouchUpInside:" destination="MK7-LV-FMl" eventType="touchUpInside" id="dsk-RM-KZ6"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="PZ8-PU-zSn" secondAttribute="trailing" id="1ab-6H-Yca"/>
-                            <constraint firstItem="PZ8-PU-zSn" firstAttribute="leading" secondItem="AE2-fd-PiR" secondAttribute="leading" id="69d-y7-LrB"/>
-                            <constraint firstItem="odm-Kp-7Nx" firstAttribute="top" secondItem="PZ8-PU-zSn" secondAttribute="bottom" id="E9L-Qn-kIC"/>
-                            <constraint firstItem="PZ8-PU-zSn" firstAttribute="top" secondItem="AE2-fd-PiR" secondAttribute="top" id="qbc-Jd-dqx"/>
+                            <constraint firstItem="odm-Kp-7Nx" firstAttribute="top" secondItem="4uG-XY-U6g" secondAttribute="bottom" constant="8" id="d31-tV-CXl"/>
+                            <constraint firstAttribute="centerX" secondItem="4uG-XY-U6g" secondAttribute="centerX" id="fuy-2H-yJr"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="gpuImageView" destination="PZ8-PU-zSn" id="etg-vc-K3a"/>
+                        <outlet property="recordButton" destination="4uG-XY-U6g" id="8Dr-jn-mD2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ptY-52-GR6" userLabel="First Responder" sceneMemberID="firstResponder"/>
