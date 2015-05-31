@@ -99,13 +99,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LaserDot/MaskViewController.m"
-            timestampString = "454725099.176451"
+            filePath = "LaserDot/VideoViewController.m"
+            timestampString = "454732761.058815"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "30"
-            endingLineNumber = "30"
-            landmarkName = "-viewDidLoad"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
+            landmarkName = "-updateText"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

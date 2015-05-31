@@ -5,10 +5,10 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Mask View Controller-->
+        <!--Video View Controller-->
         <scene sceneID="4sN-s3-zA8">
             <objects>
-                <viewController id="MK7-LV-FMl" customClass="MaskViewController" sceneMemberID="viewController">
+                <viewController id="MK7-LV-FMl" customClass="VideoViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Bg1-bp-ErM"/>
                         <viewControllerLayoutGuide type="bottom" id="odm-Kp-7Nx"/>
@@ -26,14 +26,26 @@
                                     <action selector="recordButtonTouchUpInside:" destination="MK7-LV-FMl" eventType="touchUpInside" id="dsk-RM-KZ6"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Kc-tr-yEQ">
+                                <rect key="frame" x="284" y="524" width="32" height="30"/>
+                                <state key="normal" title="Date">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="dateButtonTouchUpInside:" destination="MK7-LV-FMl" eventType="touchUpInside" id="cN5-Qu-oYZ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="centerX" secondItem="0Kc-tr-yEQ" secondAttribute="centerX" id="Egh-cw-DLP"/>
                             <constraint firstItem="odm-Kp-7Nx" firstAttribute="top" secondItem="4uG-XY-U6g" secondAttribute="bottom" constant="8" id="d31-tV-CXl"/>
                             <constraint firstAttribute="centerX" secondItem="4uG-XY-U6g" secondAttribute="centerX" id="fuy-2H-yJr"/>
+                            <constraint firstItem="4uG-XY-U6g" firstAttribute="top" secondItem="0Kc-tr-yEQ" secondAttribute="bottom" constant="8" id="wXj-C7-tMH"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="dateButton" destination="0Kc-tr-yEQ" id="oeM-Wm-Y4u"/>
                         <outlet property="recordButton" destination="4uG-XY-U6g" id="8Dr-jn-mD2"/>
                     </connections>
                 </viewController>

@@ -10,6 +10,6 @@
 #import "GPUImage.h"
 
 
-@interface MaskViewController : UIViewController
+@interface VideoViewController : UIViewController
 
 @end

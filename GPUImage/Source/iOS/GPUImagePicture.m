@@ -60,16 +60,24 @@
 		return nil;
     }
     
+    [self updateCGImage:newImageSource smoothlyScaleOutput:smoothlyScaleOutput];
+    
+    return self;
+}
+
+- (void)updateCGImage:(CGImageRef)newImageSource smoothlyScaleOutput:(BOOL)smoothlyScaleOutput
+{
+    
     hasProcessedImage = NO;
     self.shouldSmoothlyScaleOutput = smoothlyScaleOutput;
     imageUpdateSemaphore = dispatch_semaphore_create(0);
     dispatch_semaphore_signal(imageUpdateSemaphore);
-
-
+    
+    
     // TODO: Dispatch this whole thing asynchronously to move image loading off main thread
     CGFloat widthOfImage = CGImageGetWidth(newImageSource);
     CGFloat heightOfImage = CGImageGetHeight(newImageSource);
-
+    
     // If passed an empty image reference, CGContextDrawImage will fail in future versions of the SDK.
     NSAssert( widthOfImage > 0 && heightOfImage > 0, @"Passed image must not be empty - it should be at least 1px tall and wide");
     
@@ -184,7 +192,7 @@
         
         outputFramebuffer = [[GPUImageContext sharedFramebufferCache] fetchFramebufferForSize:pixelSizeToUseForTexture onlyTexture:YES];
         [outputFramebuffer disableReferenceCounting];
-
+        
         glBindTexture(GL_TEXTURE_2D, [outputFramebuffer texture]);
         if (self.shouldSmoothlyScaleOutput)
         {
@@ -212,8 +220,8 @@
         }
     }
     
-    return self;
 }
+
 
 // ARC forbids explicit message send of 'release'; since iOS 6 even for dispatch_release() calls: stripping it out in that case is required.
 - (void)dealloc;
@@ -302,3 +310,4 @@
 }
 
 @end
+

@@ -12,6 +12,8 @@
 	<dict>
 		<key>3763A2CD3F7F53451E3847DFFD638F1C809DB9A5</key>
 		<string>github.com:zakkhoyt/LaserDot.git</string>
+		<key>7502D156DDAFFAA81F6C0A3EE6376497B60B08A3</key>
+		<string>github.com:zakkhoyt/PHAsset-Utility.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>LaserDot.xcodeproj</string>
@@ -19,6 +21,8 @@
 	<dict>
 		<key>3763A2CD3F7F53451E3847DFFD638F1C809DB9A5</key>
 		<string>../..</string>
+		<key>7502D156DDAFFAA81F6C0A3EE6376497B60B08A3</key>
+		<string>../../LaserDot/PHAsset-Utility</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>github.com:zakkhoyt/LaserDot.git</string>
@@ -35,6 +39,14 @@
 			<string>3763A2CD3F7F53451E3847DFFD638F1C809DB9A5</string>
 			<key>IDESourceControlWCCName</key>
 			<string>LaserDot</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>7502D156DDAFFAA81F6C0A3EE6376497B60B08A3</string>
+			<key>IDESourceControlWCCName</key>
+			<string>PHAsset-Utility</string>
 		</dict>
 	</array>
 </dict>

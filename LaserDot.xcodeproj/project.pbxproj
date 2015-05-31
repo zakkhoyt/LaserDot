@@ -8,7 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		CF555E471B1A89D30094BFCD /* libGPUImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CF555E421B1A89C50094BFCD /* libGPUImage.a */; };
-		CF555E4A1B1A8AAE0094BFCD /* MaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF555E491B1A8AAE0094BFCD /* MaskViewController.m */; };
+		CF555E4A1B1A8AAE0094BFCD /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF555E491B1A8AAE0094BFCD /* VideoViewController.m */; };
+		CF555E4D1B1A919F0094BFCD /* PHAsset+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = CF555E4C1B1A919F0094BFCD /* PHAsset+Utility.m */; };
+		CF555E5B1B1A9C790094BFCD /* UIView+RenderToImage.m in Sources */ = {isa = PBXBuildFile; fileRef = CF555E5A1B1A9C790094BFCD /* UIView+RenderToImage.m */; };
+		CF555E5E1B1AA7BE0094BFCD /* NSTimer+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = CF555E5D1B1AA7BE0094BFCD /* NSTimer+Blocks.m */; };
 		CF8005871B08596A008B830D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CF8005861B08596A008B830D /* main.m */; };
 		CF80058A1B08596A008B830D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CF8005891B08596A008B830D /* AppDelegate.m */; };
 		CF80058D1B08596A008B830D /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CF80058C1B08596A008B830D /* GameScene.m */; };
@@ -57,8 +60,15 @@
 
 /* Begin PBXFileReference section */
 		CF555E3B1B1A89C40094BFCD /* GPUImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GPUImage.xcodeproj; path = GPUImage/GPUImage.xcodeproj; sourceTree = "<group>"; };
-		CF555E481B1A8AAE0094BFCD /* MaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaskViewController.h; sourceTree = "<group>"; };
-		CF555E491B1A8AAE0094BFCD /* MaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaskViewController.m; sourceTree = "<group>"; };
+		CF555E481B1A8AAE0094BFCD /* VideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoViewController.h; sourceTree = "<group>"; };
+		CF555E491B1A8AAE0094BFCD /* VideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoViewController.m; sourceTree = "<group>"; };
+		CF555E4B1B1A919F0094BFCD /* PHAsset+Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PHAsset+Utility.h"; path = "PHAsset-Utility/PHAsset+Utility.h"; sourceTree = "<group>"; };
+		CF555E4C1B1A919F0094BFCD /* PHAsset+Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PHAsset+Utility.m"; path = "PHAsset-Utility/PHAsset+Utility.m"; sourceTree = "<group>"; };
+		CF555E521B1A94010094BFCD /* LaserDot-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LaserDot-Bridging-Header.h"; sourceTree = "<group>"; };
+		CF555E591B1A9C790094BFCD /* UIView+RenderToImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+RenderToImage.h"; sourceTree = "<group>"; };
+		CF555E5A1B1A9C790094BFCD /* UIView+RenderToImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+RenderToImage.m"; sourceTree = "<group>"; };
+		CF555E5C1B1AA7BE0094BFCD /* NSTimer+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+Blocks.h"; sourceTree = "<group>"; };
+		CF555E5D1B1AA7BE0094BFCD /* NSTimer+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+Blocks.m"; sourceTree = "<group>"; };
 		CF8005811B08596A008B830D /* LaserDot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LaserDot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF8005851B08596A008B830D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CF8005861B08596A008B830D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -140,6 +150,7 @@
 				CF8005841B08596A008B830D /* Supporting Files */,
 				CFF71FC31B0924C000CDE233 /* UserInterface */,
 				CFF71FC21B0924B800CDE233 /* ViewControllers */,
+				CF555E521B1A94010094BFCD /* LaserDot-Bridging-Header.h */,
 			);
 			path = LaserDot;
 			sourceTree = "<group>";
@@ -189,8 +200,8 @@
 			children = (
 				CF8005901B08596A008B830D /* ZHDotViewController.h */,
 				CF8005911B08596A008B830D /* ZHDotViewController.m */,
-				CF555E481B1A8AAE0094BFCD /* MaskViewController.h */,
-				CF555E491B1A8AAE0094BFCD /* MaskViewController.m */,
+				CF555E481B1A8AAE0094BFCD /* VideoViewController.h */,
+				CF555E491B1A8AAE0094BFCD /* VideoViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -224,6 +235,12 @@
 		CFF71FCD1B0928AE00CDE233 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				CF555E4B1B1A919F0094BFCD /* PHAsset+Utility.h */,
+				CF555E4C1B1A919F0094BFCD /* PHAsset+Utility.m */,
+				CF555E5C1B1AA7BE0094BFCD /* NSTimer+Blocks.h */,
+				CF555E5D1B1AA7BE0094BFCD /* NSTimer+Blocks.m */,
+				CF555E591B1A9C790094BFCD /* UIView+RenderToImage.h */,
+				CF555E5A1B1A9C790094BFCD /* UIView+RenderToImage.m */,
 				CFF71FCA1B09286400CDE233 /* SKScene+Unarchive.h */,
 				CFF71FCB1B09286400CDE233 /* SKScene+Unarchive.m */,
 			);
@@ -357,8 +374,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				CFF71FC81B09250900CDE233 /* README.md in Sources */,
+				CF555E5B1B1A9C790094BFCD /* UIView+RenderToImage.m in Sources */,
+				CF555E4D1B1A919F0094BFCD /* PHAsset+Utility.m in Sources */,
 				CF8005921B08596A008B830D /* ZHDotViewController.m in Sources */,
-				CF555E4A1B1A8AAE0094BFCD /* MaskViewController.m in Sources */,
+				CF555E4A1B1A8AAE0094BFCD /* VideoViewController.m in Sources */,
+				CF555E5E1B1AA7BE0094BFCD /* NSTimer+Blocks.m in Sources */,
 				CF8005B11B0859E0008B830D /* ZHDotScene.m in Sources */,
 				CF80058A1B08596A008B830D /* AppDelegate.m in Sources */,
 				CF80058D1B08596A008B830D /* GameScene.m in Sources */,
@@ -496,6 +516,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -504,6 +525,8 @@
 				INFOPLIST_FILE = LaserDot/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "LaserDot/LaserDot-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -511,6 +534,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -519,6 +543,7 @@
 				INFOPLIST_FILE = LaserDot/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "LaserDot/LaserDot-Bridging-Header.h";
 			};
 			name = Release;
 		};

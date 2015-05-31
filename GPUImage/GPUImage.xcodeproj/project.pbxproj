@@ -1904,7 +1904,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastTestingUpgradeCheck = 0510;
-				LastUpgradeCheck = 0600;
+				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Brad Larson";
 				TargetAttributes = {
 					BCE209E41943F20C002FEED8 = {
