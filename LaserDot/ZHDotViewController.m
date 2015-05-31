@@ -9,6 +9,7 @@
 #import "ZHDotViewController.h"
 #import "GameScene.h"
 #import "ZHDotScene.h"
+#import "GPUImage.h"
 
 #include <sys/types.h>
 #include <sys/sysctl.h>
@@ -17,6 +18,8 @@
 
 
 @interface ZHDotViewController ()
+@property (nonatomic, strong) GPUImageView *gpuImageView;
+
 @property (nonatomic, strong) SKView *skView;
 @property (nonatomic, strong) ZHDotScene *dotScene;
 @property (nonatomic) CGFloat alphaThreshold;

@@ -1,10 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14A388a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="YlE-vA-bqV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E7f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="MK7-LV-FMl">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
+        <!--Mask View Controller-->
+        <scene sceneID="4sN-s3-zA8">
+            <objects>
+                <viewController id="MK7-LV-FMl" customClass="MaskViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Bg1-bp-ErM"/>
+                        <viewControllerLayoutGuide type="bottom" id="odm-Kp-7Nx"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="AE2-fd-PiR">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PZ8-PU-zSn" customClass="GPUImageView">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="PZ8-PU-zSn" secondAttribute="trailing" id="1ab-6H-Yca"/>
+                            <constraint firstItem="PZ8-PU-zSn" firstAttribute="leading" secondItem="AE2-fd-PiR" secondAttribute="leading" id="69d-y7-LrB"/>
+                            <constraint firstItem="odm-Kp-7Nx" firstAttribute="top" secondItem="PZ8-PU-zSn" secondAttribute="bottom" id="E9L-Qn-kIC"/>
+                            <constraint firstItem="PZ8-PU-zSn" firstAttribute="top" secondItem="AE2-fd-PiR" secondAttribute="top" id="qbc-Jd-dqx"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="gpuImageView" destination="PZ8-PU-zSn" id="etg-vc-K3a"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ptY-52-GR6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="879" y="29"/>
+        </scene>
         <!--Dot View Controller-->
         <scene sceneID="uwF-rC-ddX">
             <objects>
@@ -83,7 +116,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A9R-o4-leM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="879" y="668"/>
+            <point key="canvasLocation" x="879" y="854"/>
         </scene>
     </scenes>
 </document>
